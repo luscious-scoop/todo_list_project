@@ -22,4 +22,10 @@ function toDoController() {
 		const toDo = new toDoTask(title, description, dueDate, priority);
 		toDoArray.push(toDo);
 	};
+
+	const printToDoList = () => {
+		toDoArray.forEach((task) => {
+			console.log(task);
+		});
+	};
 }
