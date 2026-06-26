@@ -17,4 +17,9 @@ function toDoController() {
 	const toDoArray = [];
 
 	const getToDoArray = () => toDoArray;
+
+	const addTask = (title, description, dueDate, priority) => {
+		const toDo = new toDoTask(title, description, dueDate, priority);
+		toDoArray.push(toDo);
+	};
 }
