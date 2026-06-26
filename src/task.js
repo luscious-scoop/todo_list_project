@@ -50,7 +50,7 @@ function toDoController() {
 	const toggleCompleteStatus = (id) => {
 		let index = findTask(id);
 
-		if (index !== false || index === 0) {
+		if (index || index === 0) {
 			toDoArray[index].toggleStatus();
 		}
 	};
@@ -60,6 +60,7 @@ function toDoController() {
 		addTask,
 		removeTask,
 		printToDoList,
+		toggleCompleteStatus,
 	};
 }
 
