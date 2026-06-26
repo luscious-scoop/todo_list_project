@@ -39,12 +39,20 @@ function toDoController() {
 		let index = findTask(id);
 
 		console.log("I am here");
-		if (index) {
+		if (index || index === 0) {
 			toDoArray.splice(index, 1);
 		} else {
 			console.log("not found");
 		}
 		console.log(toDoArray);
+	};
+
+	const toggleCompleteStatus = (id) => {
+		let index = findTask(id);
+
+		if (index !== false || index === 0) {
+			toDoArray[index].toggleStatus();
+		}
 	};
 
 	return {
