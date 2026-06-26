@@ -28,4 +28,25 @@ function toDoController() {
 			console.log(task);
 		});
 	};
+
+	const removeTask = (id) => {
+		const index = toDoArray.findIndex((task) => task.id === id);
+
+		console.log("I am here");
+		if (index !== -1) {
+			toDoArray.splice(index, 1);
+		} else {
+			console.log("not found");
+		}
+		console.log(toDoArray);
+	};
+
+	return {
+		getToDoArray,
+		addTask,
+		removeTask,
+		printToDoList,
+	};
 }
+
+export { toDoController };
