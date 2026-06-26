@@ -28,12 +28,18 @@ function toDoController() {
 			console.log(task);
 		});
 	};
-
-	const removeTask = (id) => {
+	const findTask = (id) => {
 		const index = toDoArray.findIndex((task) => task.id === id);
+		if (index !== -1) {
+			return index;
+		}
+		return false;
+	};
+	const removeTask = (id) => {
+		let index = findTask(id);
 
 		console.log("I am here");
-		if (index !== -1) {
+		if (index) {
 			toDoArray.splice(index, 1);
 		} else {
 			console.log("not found");
