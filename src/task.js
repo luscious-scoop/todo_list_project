@@ -12,3 +12,9 @@ class toDoTask {
 		this.isCompleted = !this.isCompleted;
 	}
 }
+
+function toDoController() {
+	const toDoArray = [];
+
+	const getToDoArray = () => toDoArray;
+}
