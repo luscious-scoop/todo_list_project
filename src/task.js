@@ -33,7 +33,7 @@ function toDoController() {
 		});
 	};
 	const findTask = (id) => {
-		const index = toDoArray.findIndex((task) => task.id === id);
+		const index = getToDoArray().findIndex((task) => task.id === id);
 		if (index !== -1) {
 			return index;
 		}
@@ -51,21 +51,36 @@ function toDoController() {
 		console.log(toDoArray);
 	};
 
-	const toggleCompleteStatus = (id) => {
-		let index = findTask(id);
-
-		if (index || index === 0) {
-			toDoArray[index].toggleStatus();
-		}
-	};
-
 	return {
 		getToDoArray,
 		addTask,
 		removeTask,
 		printToDoList,
+		findTask,
+	};
+}
+
+function taskController() {
+	let obj = toDoController();
+
+	const toggleCompleteStatus = (id) => {
+		let index = obj.findTask(id);
+
+		if (index || index === 0) {
+			obj.getToDoArray()[index].toggleStatus();
+		}
+	};
+
+	return {
+		...obj,
 		toggleCompleteStatus,
 	};
 }
 
-export { toDoController, task, notes };
+function notesController() {
+	return {
+		...toDoController(),
+	};
+}
+
+export { taskController, notesController, task, notes };

@@ -1,8 +1,8 @@
 import "./style.css";
 
-import { toDoController, notes, task } from "./task.js";
+import { taskController, notes, task, notesController } from "./task.js";
 
-const obj = toDoController();
+const obj = taskController();
 
 obj.addTask(new task("washing clothes", "none", "67", "low"));
 
@@ -19,3 +19,9 @@ let id = list[1].id;
 
 obj.toggleCompleteStatus(id);
 console.log(obj.getToDoArray());
+
+let nt = notesController();
+
+nt.addTask(new notes("hy", "by"));
+
+console.log(nt.getToDoArray());
