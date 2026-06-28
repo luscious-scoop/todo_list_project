@@ -1,13 +1,18 @@
-class toDoTask {
-	constructor(title, description, dueDate, priority) {
+class notes {
+	constructor(title, description) {
 		this.id = crypto.randomUUID();
 		this.title = title;
 		this.description = description;
+	}
+}
+
+class task extends notes {
+	constructor(title, description, dueDate, priority) {
+		super(title, description);
 		this.dueDate = dueDate;
 		this.priority = priority;
 		this.isCompleted = false;
 	}
-
 	toggleStatus() {
 		this.isCompleted = !this.isCompleted;
 	}
@@ -18,9 +23,8 @@ function toDoController() {
 
 	const getToDoArray = () => toDoArray;
 
-	const addTask = (title, description, dueDate, priority) => {
-		const toDo = new toDoTask(title, description, dueDate, priority);
-		toDoArray.push(toDo);
+	const addTask = (object) => {
+		toDoArray.push(object);
 	};
 
 	const printToDoList = () => {
@@ -64,4 +68,4 @@ function toDoController() {
 	};
 }
 
-export { toDoController };
+export { toDoController, task, notes };

@@ -1,16 +1,16 @@
 import "./style.css";
 
-import { toDoController } from "./task.js";
+import { toDoController, notes, task } from "./task.js";
 
 const obj = toDoController();
 
-obj.addTask("washing clothes", "none", "67", "low");
+obj.addTask(new task("washing clothes", "none", "67", "low"));
 
-obj.addTask("reading", "none", "67", "low");
+obj.addTask(new task("reading", "none", "67", "low"));
 
-obj.addTask("cooking", "none", "67", "low");
+obj.addTask(new task("cooking", "none", "67", "low"));
 
-obj.addTask("study", "none", "67", "low");
+obj.addTask(new task("study", "none", "67", "low"));
 console.log(obj.getToDoArray());
 
 let list = obj.getToDoArray();
