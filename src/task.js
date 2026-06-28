@@ -71,15 +71,60 @@ function taskController() {
 		}
 	};
 
+	const editTask = (
+		id,
+		title = null,
+		description = null,
+		dueDate = null,
+		priority = null,
+	) => {
+		let index = obj.findTask(id);
+
+		if (index || index === 0) {
+			obj.getToDoArray()[index].title =
+				title !== null ? title : obj.getToDoArray()[index].title;
+			obj.getToDoArray()[index].description =
+				description !== null
+					? description
+					: obj.getToDoArray()[index].description;
+			obj.getToDoArray()[index].dueDate =
+				dueDate !== null ? dueDate : obj.getToDoArray()[index].dueDate;
+			obj.getToDoArray()[index].priority =
+				priority !== null
+					? priority
+					: obj.getToDoArray()[index].priority;
+		} else {
+			console.log("Not found");
+			return;
+		}
+	};
+
 	return {
 		...obj,
 		toggleCompleteStatus,
+		editTask,
 	};
 }
 
 function notesController() {
+	const editNote = (id, title = null, description = null) => {
+		let index = obj.findTask(id);
+
+		if (index || index === 0) {
+			obj.getToDoArray()[index].title =
+				title !== null ? title : obj.getToDoArray()[index].title;
+			obj.getToDoArray()[index].description =
+				description !== null
+					? description
+					: obj.getToDoArray()[index].description;
+		} else {
+			console.log("Not found");
+			return;
+		}
+	};
 	return {
 		...toDoController(),
+		editNote,
 	};
 }
 

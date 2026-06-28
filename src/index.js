@@ -15,9 +15,9 @@ console.log(obj.getToDoArray());
 
 let list = obj.getToDoArray();
 
-let id = list[1].id;
+let id = list[3].id;
 
-obj.toggleCompleteStatus(id);
+obj.editTask(id, "movie night", "none ");
 console.log(obj.getToDoArray());
 
 let nt = notesController();
