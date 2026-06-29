@@ -63,3 +63,30 @@ h6 {
 }
 
 /* ========== CSS Reset End ==========*/
+
+/*========== Header ==========*/
+
+header {
+	font-size: 1.5rem;
+	padding: 15px 30px;
+
+	background-color: pink;
+	display: flex;
+}
+
+header h2 {
+	color: white;
+	flex: 1;
+}
+
+header button {
+	background-color: black;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 3rem;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
