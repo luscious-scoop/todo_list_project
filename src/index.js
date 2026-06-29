@@ -44,3 +44,6 @@ office.addTask(new task("go at 9am", "lunch at 2am", "5pm break", "high"));
 office.addTask(new task("work", "sleep", "eat", "medium"));
 console.log(office.getToDoArray());
 console.log(projectObject.getAllProjects());
+
+projectObject.deleteProject("gym");
+console.log(projectObject.getAllProjects());
