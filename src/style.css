@@ -156,13 +156,13 @@ main {
 	border: 2px solid red;
 }
 
-.card {
+.to-do {
 	display: flex;
 	background-color: palegreen;
 	padding: 10px 20px;
 }
 
-.card div:first-child {
+.to-do div:first-child {
 	flex: 1;
 	/* border: 2px solid yellow; */
 	display: flex;
@@ -170,7 +170,7 @@ main {
 	align-items: center;
 }
 
-.card div:first-child button {
+.to-do div:first-child button {
 	width: 40px;
 	height: 40px;
 	border-radius: 8px;
@@ -178,16 +178,16 @@ main {
 	background-color: transparent;
 }
 
-.card div:first-child h2 {
+.to-do div:first-child h2 {
 	color: white;
 }
 
-.card div:nth-child(2) {
+.to-do div:nth-child(2) {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 }
 
-.card div:nth-child(2) button {
+.to-do div:nth-child(2) button {
 	padding: 12px 18px;
 }
