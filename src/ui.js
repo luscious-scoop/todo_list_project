@@ -60,8 +60,15 @@ export function screenController() {
 
 		formSecondChild.appendChild(priorityDiv);
 
+		const formThirdChild = document.createElement("div");
+
+		const addToDoBtn = document.createElement("button");
+		addToDoBtn.textContent = "Add To Do";
+		formThirdChild.appendChild(addToDoBtn);
+
 		form.appendChild(formFirstChild);
 		form.appendChild(formSecondChild);
+		form.appendChild(formThirdChild);
 	};
 
 	createTaskForm();
