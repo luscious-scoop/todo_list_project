@@ -4,6 +4,7 @@ function screenController() {
 	const completedBtn = document.querySelector("completed");
 	const dialog = document.querySelector("dialog");
 	const form = document.querySelector("form");
+	const closeBtn = document.querySelector(".close-btn");
 
 	const createTaskForm = () => {
 		form.textContent = "";
