@@ -197,4 +197,11 @@ main {
 form div:first-child {
 	display: flex;
 	flex-direction: column;
+	gap: 20px;
+}
+
+form textarea,
+form input[type="text"] {
+	padding: 12px 16px;
+	font-size: 1.3rem;
 }
