@@ -3,8 +3,9 @@ function screenController() {
 	const notesBtn = document.querySelector("notes");
 	const completedBtn = document.querySelector("completed");
 	const dialog = document.querySelector("dialog");
+	const form = document.querySelector("form");
 
 	const createTaskForm = () => {
-		dialog.textContent = "";
+		form.textContent = "";
 	};
 }
