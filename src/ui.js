@@ -14,11 +14,14 @@ export function screenController() {
 
 		const titleInput = document.createElement("input");
 		titleInput.type = "text";
+		titleInput.placeholder = "Title: Pay bills";
 
 		const descriptionInput = document.createElement("textarea");
 		descriptionInput.rows = "10";
 		descriptionInput.cols = "100";
 		descriptionInput.style.resize = "none";
+		descriptionInput.placeholder =
+			"Details: e.g internet, phone , electricity.";
 
 		formFirstChild.appendChild(titleInput);
 		formFirstChild.appendChild(descriptionInput);
