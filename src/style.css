@@ -106,11 +106,46 @@ header button {
 	background-color: wheat;
 	display: flex;
 	flex-direction: column;
+	gap: 30px;
 }
 .sidebar > div:first-child {
 	border: 2px solid yellow;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 15px;
+	align-items: center;
+}
+.sidebar > div:first-child button {
+	padding: 10px;
 }
 
+.projects-section .header-section {
+	display: flex;
+	border: 2px solid red;
+	justify-content: center;
+	gap: 10px;
+}
+
+.projects-section .header-section button {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	border: none;
+}
+.projects-section .project-card button:first-child {
+	flex: 1;
+}
+
+.projects-section .project-card {
+	display: flex;
+	border: 2px solid red;
+	justify-content: center;
+	gap: 10px;
+}
+
+.project-card {
+	padding: 5px 20px;
+}
 /*========== Main content ==========*/
 
 main {
