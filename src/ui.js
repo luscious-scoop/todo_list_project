@@ -16,6 +16,9 @@ export function screenController() {
 		titleInput.type = "text";
 
 		const descriptionInput = document.createElement("textarea");
+		descriptionInput.rows = "10";
+		descriptionInput.cols = "100";
+		descriptionInput.style.resize = "none";
 
 		formFirstChild.appendChild(titleInput);
 		formFirstChild.appendChild(descriptionInput);
