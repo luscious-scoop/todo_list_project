@@ -2,6 +2,7 @@ import "./style.css";
 
 import { taskController, notes, task, notesController } from "./task.js";
 import { projectController } from "./projects.js";
+import { screenController } from "./ui.js";
 
 /* const obj = taskController();
 
@@ -27,7 +28,7 @@ nt.addTask(new notes("hy", "by"));
 
 console.log(nt.getToDoArray());
  */
-
+/* 
 const projectObject = projectController();
 projectObject.createProject("gym");
 projectObject.createProject("office");
@@ -47,3 +48,6 @@ console.log(projectObject.getAllProjects());
 
 projectObject.deleteProject("gym");
 console.log(projectObject.getAllProjects());
+ */
+
+screenController();

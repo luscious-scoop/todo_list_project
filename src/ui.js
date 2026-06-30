@@ -1,10 +1,11 @@
-function screenController() {
+export function screenController() {
 	const homeBtn = document.querySelector(".home");
 	const notesBtn = document.querySelector("notes");
 	const completedBtn = document.querySelector("completed");
 	const dialog = document.querySelector("dialog");
 	const form = document.querySelector("form");
 	const closeBtn = document.querySelector(".close-btn");
+	const addBtn = document.querySelector(".add-btn");
 
 	const createTaskForm = () => {
 		form.textContent = "";
@@ -55,9 +56,18 @@ function screenController() {
 		priorityDiv.appendChild(priorityButtonsDiv);
 
 		formSecondChild.appendChild(priorityDiv);
+
+		form.appendChild(formFirstChild);
+		form.appendChild(formSecondChild);
 	};
 
+	createTaskForm();
 	const showForm = () => {
 		dialog.showModal();
 	};
+	const closeForm = () => {
+		dialog.close();
+	};
+	addBtn.addEventListener("click", showForm);
+	closeBtn.addEventListener("click", closeForm);
 }
