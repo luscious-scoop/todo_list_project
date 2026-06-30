@@ -56,4 +56,8 @@ function screenController() {
 
 		formSecondChild.appendChild(priorityDiv);
 	};
+
+	const showForm = () => {
+		dialog.showModal();
+	};
 }
