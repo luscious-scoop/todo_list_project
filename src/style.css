@@ -104,7 +104,14 @@ header button {
 .sidebar {
 	height: 100vh;
 	background-color: wheat;
+	display: flex;
+	flex-direction: column;
 }
+.sidebar > div:first-child {
+	border: 2px solid yellow;
+}
+
+/*========== Main content ==========*/
 
 main {
 	display: flex;
