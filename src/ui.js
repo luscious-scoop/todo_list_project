@@ -176,4 +176,50 @@ export function screenController() {
 			});
 		});
 	};
+
+	const createDescriptionDialog = (title, description, dueDate, priority) => {
+		const descriptionDialog = document.createElement("dialog");
+		descriptionDialog.classList.add("description-dialog");
+
+		const titleDiv = document.createElement("div");
+
+		const titleHeading = document.createElement("p");
+		titleHeading.textContent = "Title: ";
+		const titleValue = document.createElement("p");
+		titleValue.textContent = `${title}`;
+
+		titleDiv.appendChild(titleHeading);
+		titleDiv.appendChild(titleValue);
+
+		const descriptionDiv = document.createElement("div");
+
+		const descriptionHeading = document.createElement("p");
+		descriptionHeading.textContent = "Description: ";
+		const descriptionValue = document.createElement("p");
+		descriptionValue.textContent = `${description}`;
+
+		descriptionDiv.appendChild(descriptionHeading);
+		descriptionDiv.appendChild(descriptionValue);
+
+		const dateDiv = document.createElement("div");
+
+		const dateHeading = document.createElement("p");
+		dateHeading.textContent = "DueDate: ";
+
+		const dateValue = document.createElement("p");
+		dateValue.textContent = `${dueDate}`;
+
+		dateDiv.appendChild(dateHeading);
+		dateDiv.appendChild(dateValue);
+
+		const priorityDiv = document.createElement("div");
+
+		const priorityHeading = document.createElement("p");
+		priorityHeading.textContent = "Priority: ";
+		const priorityValue = document.createElement("p");
+		priorityValue.textContent = `${priority}`;
+
+		priorityDiv.appendChild(priorityHeading);
+		priorityDiv.appendChild(priorityValue);
+	};
 }
