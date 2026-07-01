@@ -1,6 +1,8 @@
-import { taskController, task, notes, taskController } from "./task.js";
+import { taskController, task, notes, notesController } from "./task.js";
 
 export function screenController() {
+	const toDo = taskController();
+	const notes = notesController();
 	const homeBtn = document.querySelector(".home");
 	const notesBtn = document.querySelector("notes");
 	const completedBtn = document.querySelector("completed");
