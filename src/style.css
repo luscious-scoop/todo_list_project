@@ -34,6 +34,9 @@ textarea,
 select {
 	font: inherit;
 }
+input {
+	display: block;
+}
 
 p,
 h1,
@@ -204,4 +207,28 @@ form textarea,
 form input[type="text"] {
 	padding: 12px 16px;
 	font-size: 1.3rem;
+}
+
+dialog > div:first-child {
+	margin-bottom: 20px;
+	display: flex;
+	background-color: chartreuse;
+	color: black;
+	padding: 10px 18px;
+	align-items: center;
+}
+
+dialog > div:first-child h2 {
+	flex: 1;
+}
+
+dialog > div:first-child button {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+
+form > div:nth-child(2) > div:first-child {
+	display: flex;
+	border: 2px solid red;
 }
