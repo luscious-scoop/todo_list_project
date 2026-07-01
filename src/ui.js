@@ -1,6 +1,7 @@
 import { taskController, task, notes, notesController } from "./task.js";
 
 export function screenController() {
+	const mainDiv = document.querySelector("main");
 	const toDo = taskController();
 	const notes = notesController();
 	const homeBtn = document.querySelector(".home");
@@ -71,6 +72,7 @@ export function screenController() {
 
 		const addToDoBtn = document.createElement("button");
 		addToDoBtn.textContent = "Add To Do";
+		addToDoBtn.classList.add("create-todo-btn");
 		formThirdChild.appendChild(addToDoBtn);
 
 		form.appendChild(formFirstChild);
@@ -87,4 +89,69 @@ export function screenController() {
 	};
 	addBtn.addEventListener("click", showForm);
 	closeBtn.addEventListener("click", closeForm);
+
+	const createToDo = () => {
+		const title = document.querySelector('input[type="text"]').value;
+		const description = document.querySelector("textarea").value;
+		const dueDate = document.querySelector('input[type="date"]').value;
+		const priority = "Low";
+		toDo.addTask(new task(title, description, dueDate, priority));
+		displayToDo();
+	};
+
+	const createToDoElements = () => {
+		const toDoDiv = document.createElement("div");
+		toDoDiv.classList.add("to-do");
+
+		const toDoDivFirstChild = document.createElement("div");
+
+		const isCompletedBtn = document.createElement("button");
+		isCompletedBtn.textContent = "X";
+
+		const titleHeading = document.createElement("h2");
+
+		toDoDivFirstChild.appendChild(isCompletedBtn);
+		toDoDivFirstChild.appendChild(titleHeading);
+
+		const toDoDivSecondChild = document.createElement("div");
+
+		const date = document.createElement("div");
+
+		const detailsBtn = document.createElement("button");
+		detailsBtn.textContent = "details";
+
+		const editBtn = document.createElement("button");
+		editBtn.textContent = "edit";
+		const deleteBtn = document.createElement("button");
+		deleteBtn.textContent = "delete";
+
+		toDoDivSecondChild.appendChild(date);
+		toDoDivSecondChild.appendChild(detailsBtn);
+		toDoDivSecondChild.appendChild(editBtn);
+		toDoDivSecondChild.appendChild(deleteBtn);
+
+		toDoDiv.appendChild(toDoDivFirstChild);
+		toDoDiv.appendChild(toDoDivSecondChild);
+
+		mainDiv.appendChild(toDoDiv);
+
+		return [titleHeading, date];
+	};
+
+	const displayToDo = () => {
+		mainDiv.textContent = "";
+
+		toDo.getToDoArray().forEach((task) => {
+			const [titleHeading, date] = createToDoElements();
+			titleHeading.textContent = `${task.title}`;
+
+			date.textContent = `${task.dueDate}`;
+		});
+	};
+	const createToDoBtn = document.querySelector(".create-todo-btn");
+	createToDo.addEventListener("click", () => {
+		createToDo();
+		dialog.close();
+		form.reset();
+	});
 }
