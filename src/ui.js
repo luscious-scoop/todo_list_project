@@ -86,6 +86,7 @@ export function screenController() {
 	};
 	const closeForm = () => {
 		dialog.close();
+		form.reset();
 	};
 	addBtn.addEventListener("click", showForm);
 	closeBtn.addEventListener("click", closeForm);
