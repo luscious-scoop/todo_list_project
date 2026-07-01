@@ -100,7 +100,7 @@ export function screenController() {
 		displayToDo();
 	};
 
-	const createToDoElements = () => {
+	const createToDoHTML = () => {
 		const toDoDiv = document.createElement("div");
 		toDoDiv.classList.add("to-do");
 
@@ -144,7 +144,7 @@ export function screenController() {
 		mainDiv.textContent = "";
 
 		toDo.getToDoArray().forEach((task) => {
-			const [titleHeading, date, deleteBtn] = createToDoElements();
+			const [titleHeading, date, deleteBtn] = createToDoHTML();
 			titleHeading.textContent = `${task.title}`;
 			deleteBtn.dataset.id = `${task.id}`;
 
