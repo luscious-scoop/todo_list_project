@@ -120,6 +120,7 @@ export function screenController() {
 
 		const detailsBtn = document.createElement("button");
 		detailsBtn.textContent = "details";
+		detailsBtn.classList.add("detail-btn");
 
 		const editBtn = document.createElement("button");
 		editBtn.textContent = "edit";
@@ -137,21 +138,24 @@ export function screenController() {
 
 		mainDiv.appendChild(toDoDiv);
 
-		return [titleHeading, date, deleteBtn];
+		return [titleHeading, date, deleteBtn, detailsBtn, editBtn];
 	};
 
 	const displayToDo = () => {
 		mainDiv.textContent = "";
 
 		toDo.getToDoArray().forEach((task) => {
-			const [titleHeading, date, deleteBtn] = createToDoHTML();
+			const [titleHeading, date, deleteBtn, detailsBtn, editBtn] =
+				createToDoHTML();
 			titleHeading.textContent = `${task.title}`;
 			deleteBtn.dataset.id = `${task.id}`;
-
+			editBtn.dataset.id = `${task.id}`;
+			detailsBtn.dataset.id = `${task.id}`;
 			date.textContent = `${task.dueDate}`;
 		});
 
 		deleteTaskEvent();
+		descriptionEvent();
 	};
 	const createToDoBtn = document.querySelector(".create-todo-btn");
 	createToDoBtn.addEventListener("click", (e) => {
@@ -180,6 +184,12 @@ export function screenController() {
 	const createDescriptionDialog = (title, description, dueDate, priority) => {
 		const descriptionDialog = document.createElement("dialog");
 		descriptionDialog.classList.add("description-dialog");
+
+		const closeBtnDiv = document.createElement("div");
+		const closeBtn = document.createElement("button");
+		closeBtn.classList.add("desc-close");
+		closeBtnDiv.appendChild(closeBtn);
+		descriptionDialog.appendChild(closeBtnDiv);
 
 		const titleDiv = document.createElement("div");
 
@@ -221,5 +231,40 @@ export function screenController() {
 
 		priorityDiv.appendChild(priorityHeading);
 		priorityDiv.appendChild(priorityValue);
+
+		descriptionDialog.appendChild(titleDiv);
+		descriptionDialog.appendChild(descriptionDiv);
+		descriptionDialog.appendChild(dateDiv);
+		descriptionDialog.appendChild(priorityDiv);
+
+		document.querySelector("body").appendChild(descriptionDialog);
+	};
+
+	const showDescription = (id) => {
+		let object;
+
+		let index = toDo.findTask(id);
+		if (index || index === 0) {
+			object = toDo.getToDoArray()[index];
+		} else {
+			return;
+		}
+		createDescriptionDialog(
+			object.title,
+			object.description,
+			object.dueDate,
+			object.priority,
+		);
+		document.querySelector(".description-dialog").showModal();
+	};
+
+	const descriptionEvent = () => {
+		const descriptionDialog = document.querySelector(".description-dialog");
+		const detailsBtns = document.querySelectorAll(".detail-btn");
+		detailsBtns.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				showDescription(btn.dataset.id);
+			});
+		});
 	};
 }
