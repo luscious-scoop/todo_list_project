@@ -124,6 +124,7 @@ export function screenController() {
 		const editBtn = document.createElement("button");
 		editBtn.textContent = "edit";
 		const deleteBtn = document.createElement("button");
+		deleteBtn.classList.add("delete-btn");
 		deleteBtn.textContent = "delete";
 
 		toDoDivSecondChild.appendChild(date);
@@ -136,23 +137,43 @@ export function screenController() {
 
 		mainDiv.appendChild(toDoDiv);
 
-		return [titleHeading, date];
+		return [titleHeading, date, deleteBtn];
 	};
 
 	const displayToDo = () => {
 		mainDiv.textContent = "";
 
 		toDo.getToDoArray().forEach((task) => {
-			const [titleHeading, date] = createToDoElements();
+			const [titleHeading, date, deleteBtn] = createToDoElements();
 			titleHeading.textContent = `${task.title}`;
+			deleteBtn.dataset.id = `${task.id}`;
 
 			date.textContent = `${task.dueDate}`;
 		});
+
+		deleteTaskEvent();
 	};
 	const createToDoBtn = document.querySelector(".create-todo-btn");
-	createToDo.addEventListener("click", () => {
+	createToDoBtn.addEventListener("click", (e) => {
+		e.preventDefault();
 		createToDo();
 		dialog.close();
 		form.reset();
 	});
+
+	const deleteTask = (id) => {
+		toDo.removeTask(id);
+		displayToDo();
+	};
+
+	const deleteTaskEvent = () => {
+		const deleteBtns = document.querySelectorAll(".delete-btn");
+
+		deleteBtns.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				deleteTask(btn.dataset.id);
+				console.log("hy");
+			});
+		});
+	};
 }
