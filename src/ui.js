@@ -59,6 +59,10 @@ export function screenController() {
 		mediumPriorityButton.textContent = "Medium";
 		highPriorityButton.textContent = "High";
 
+		lowPriorityButton.type = "button";
+		mediumPriorityButton.type = "button";
+		highPriorityButton.type = "button";
+
 		priorityButtonsDiv.appendChild(lowPriorityButton);
 		priorityButtonsDiv.appendChild(mediumPriorityButton);
 		priorityButtonsDiv.appendChild(highPriorityButton);

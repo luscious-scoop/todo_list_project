@@ -197,10 +197,11 @@ main {
 
 /*  Form styles*/
 
-form div:first-child {
+form > div:first-child {
+	border: 2px solid red;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 10px;
 }
 
 form textarea,
@@ -230,5 +231,26 @@ dialog > div:first-child button {
 
 form > div:nth-child(2) > div:first-child {
 	display: flex;
-	border: 2px solid red;
+	border: 2px solid yellow;
+	flex-direction: row;
+	padding: 20px 25px;
+	gap: 20px;
+}
+
+form > div:nth-child(2) > div {
+	display: flex;
+	align-items: center;
+	border: 2px solid blue;
+	gap: 10px;
+	padding: 12px;
+}
+
+form > div:nth-child(2) > div > div {
+	display: flex;
+	border: 2px solid palevioletred;
+	gap: 15px;
+}
+
+form > div:nth-child(2) > div > div button {
+	padding: 12px 18px;
 }
