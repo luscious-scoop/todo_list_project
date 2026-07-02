@@ -262,7 +262,7 @@ export function screenController() {
 		detailsBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
 				createDescriptionDialog(btn.dataset.id);
-				document.querySelector(".description-dialog").showModal();
+				document.querySelector("dialog.description-dialog").showModal();
 			});
 		});
 	};
@@ -272,7 +272,7 @@ export function screenController() {
 		const dialog = document.querySelector("dialog.description-dialog");
 
 		closeBtn.addEventListener("click", () => {
-			dialog.close();
+			document.querySelector("body").removeChild(dialog);
 		});
 	};
 }
