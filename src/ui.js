@@ -296,4 +296,9 @@ export function screenController() {
 		});
 	};
 	changePriorityEvent();
+
+	const editToDo = (id, title, description, dueDate, priority) => {
+		toDo.editTask(id, title, description, dueDate, priority);
+	};
+	const createEditForm = () => {};
 }
