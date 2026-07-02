@@ -187,10 +187,13 @@ export function screenController() {
 
 		const descriptionDialog = document.createElement("dialog");
 		descriptionDialog.classList.add("description-dialog");
+		descriptionDialog.textContent = "";
 
 		const closeBtnDiv = document.createElement("div");
 		const closeBtn = document.createElement("button");
 		closeBtn.classList.add("desc-close");
+		closeBtn.dataset.id = `${object.id}`;
+		closeBtn.textContent = "X";
 		closeBtnDiv.appendChild(closeBtn);
 		descriptionDialog.appendChild(closeBtnDiv);
 
@@ -241,6 +244,8 @@ export function screenController() {
 		descriptionDialog.appendChild(priorityDiv);
 
 		document.querySelector("body").appendChild(descriptionDialog);
+
+		closeDescriptionEvent();
 	};
 
 	const findDescription = (id) => {
@@ -259,6 +264,15 @@ export function screenController() {
 				createDescriptionDialog(btn.dataset.id);
 				document.querySelector(".description-dialog").showModal();
 			});
+		});
+	};
+
+	const closeDescriptionEvent = () => {
+		const closeBtn = document.querySelector(".desc-close");
+		const dialog = document.querySelector("dialog.description-dialog");
+
+		closeBtn.addEventListener("click", () => {
+			dialog.close();
 		});
 	};
 }
