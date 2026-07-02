@@ -254,3 +254,7 @@ form > div:nth-child(2) > div > div {
 form > div:nth-child(2) > div > div button {
 	padding: 12px 18px;
 }
+
+.selected {
+	color: white;
+}

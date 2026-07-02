@@ -59,6 +59,8 @@ export function screenController() {
 		mediumPriorityButton.textContent = "Medium";
 		highPriorityButton.textContent = "High";
 
+		lowPriorityButton.classList.add("selected");
+
 		lowPriorityButton.type = "button";
 		mediumPriorityButton.type = "button";
 		highPriorityButton.type = "button";
@@ -66,6 +68,7 @@ export function screenController() {
 		priorityButtonsDiv.appendChild(lowPriorityButton);
 		priorityButtonsDiv.appendChild(mediumPriorityButton);
 		priorityButtonsDiv.appendChild(highPriorityButton);
+		priorityDiv.classList.add("priority-btns");
 
 		priorityDiv.appendChild(priorityHeading);
 		priorityDiv.appendChild(priorityButtonsDiv);
@@ -99,7 +102,7 @@ export function screenController() {
 		const title = document.querySelector('input[type="text"]').value;
 		const description = document.querySelector("textarea").value;
 		const dueDate = document.querySelector('input[type="date"]').value;
-		const priority = "Low";
+		const priority = document.querySelector(".selected").textContent;
 		toDo.addTask(new task(title, description, dueDate, priority));
 		displayToDo();
 	};
@@ -279,4 +282,18 @@ export function screenController() {
 			document.querySelector("body").removeChild(dialog);
 		});
 	};
+
+	const changePriorityEvent = () => {
+		const priorityBtns = document.querySelectorAll(".priority-btns button");
+
+		priorityBtns.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				document
+					.querySelector(".selected")
+					.classList.remove("selected");
+				btn.classList.add("selected");
+			});
+		});
+	};
+	changePriorityEvent();
 }
