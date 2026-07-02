@@ -155,7 +155,7 @@ export function screenController() {
 		});
 
 		deleteTaskEvent();
-		descriptionEvent();
+		showDescriptionEvent();
 	};
 	const createToDoBtn = document.querySelector(".create-todo-btn");
 	createToDoBtn.addEventListener("click", (e) => {
@@ -181,7 +181,10 @@ export function screenController() {
 		});
 	};
 
-	const createDescriptionDialog = (title, description, dueDate, priority) => {
+	const createDescriptionDialog = (id) => {
+		let index = findDescription(id);
+		let object = toDo.getToDoArray()[index];
+
 		const descriptionDialog = document.createElement("dialog");
 		descriptionDialog.classList.add("description-dialog");
 
@@ -196,7 +199,7 @@ export function screenController() {
 		const titleHeading = document.createElement("p");
 		titleHeading.textContent = "Title: ";
 		const titleValue = document.createElement("p");
-		titleValue.textContent = `${title}`;
+		titleValue.textContent = `${object.title}`;
 
 		titleDiv.appendChild(titleHeading);
 		titleDiv.appendChild(titleValue);
@@ -206,7 +209,7 @@ export function screenController() {
 		const descriptionHeading = document.createElement("p");
 		descriptionHeading.textContent = "Description: ";
 		const descriptionValue = document.createElement("p");
-		descriptionValue.textContent = `${description}`;
+		descriptionValue.textContent = `${object.description}`;
 
 		descriptionDiv.appendChild(descriptionHeading);
 		descriptionDiv.appendChild(descriptionValue);
@@ -217,7 +220,7 @@ export function screenController() {
 		dateHeading.textContent = "DueDate: ";
 
 		const dateValue = document.createElement("p");
-		dateValue.textContent = `${dueDate}`;
+		dateValue.textContent = `${object.dueDate}`;
 
 		dateDiv.appendChild(dateHeading);
 		dateDiv.appendChild(dateValue);
@@ -227,7 +230,7 @@ export function screenController() {
 		const priorityHeading = document.createElement("p");
 		priorityHeading.textContent = "Priority: ";
 		const priorityValue = document.createElement("p");
-		priorityValue.textContent = `${priority}`;
+		priorityValue.textContent = `${object.priority}`;
 
 		priorityDiv.appendChild(priorityHeading);
 		priorityDiv.appendChild(priorityValue);
@@ -240,30 +243,21 @@ export function screenController() {
 		document.querySelector("body").appendChild(descriptionDialog);
 	};
 
-	const showDescription = (id) => {
-		let object;
-
+	const findDescription = (id) => {
 		let index = toDo.findTask(id);
 		if (index || index === 0) {
-			object = toDo.getToDoArray()[index];
+			return index;
 		} else {
 			return;
 		}
-		createDescriptionDialog(
-			object.title,
-			object.description,
-			object.dueDate,
-			object.priority,
-		);
-		document.querySelector(".description-dialog").showModal();
 	};
-
-	const descriptionEvent = () => {
-		const descriptionDialog = document.querySelector(".description-dialog");
+	const showDescriptionEvent = () => {
 		const detailsBtns = document.querySelectorAll(".detail-btn");
+
 		detailsBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
-				showDescription(btn.dataset.id);
+				createDescriptionDialog(btn.dataset.id);
+				document.querySelector(".description-dialog").showModal();
 			});
 		});
 	};
