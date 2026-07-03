@@ -19,6 +19,7 @@ export function screenController() {
 		addBtnDisplay = "Block",
 		editBtnDisplay = "none",
 	) => {
+		dialog.removeChild(document.querySelector("form"));
 		const form = document.createElement("form");
 
 		const formFirstChild = document.createElement("div");
@@ -117,7 +118,6 @@ export function screenController() {
 	};
 	const closeForm = () => {
 		dialog.close();
-		document.querySelector("form").reset();
 	};
 	addBtn.addEventListener("click", () => {
 		createTaskForm();
@@ -197,7 +197,6 @@ export function screenController() {
 			e.preventDefault();
 			createToDo();
 			dialog.close();
-			dialog.removeChild(document.querySelector("form"));
 		});
 	};
 
