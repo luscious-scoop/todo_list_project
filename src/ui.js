@@ -3,12 +3,11 @@ import { taskController, task, notes, notesController } from "./task.js";
 export function screenController() {
 	const mainDiv = document.querySelector("main");
 	const toDo = taskController();
-	const notes = notesController();
+
 	const homeBtn = document.querySelector(".home");
-	const notesBtn = document.querySelector("notes");
-	const completedBtn = document.querySelector("completed");
-	const dialog = document.querySelector("dialog");
-	const form = document.querySelector("form");
+
+	const dialog = document.querySelector(".main-dialog");
+
 	const closeBtn = document.querySelector(".close-btn");
 	const addBtn = document.querySelector(".add-btn");
 
@@ -17,9 +16,10 @@ export function screenController() {
 		description = "",
 		dueDate = "2026-07-03",
 		priority = "",
-		btnText = "Add To Do",
+		addBtnDisplay = "Block",
+		editBtnDisplay = "none",
 	) => {
-		form.textContent = "";
+		const form = document.createElement("form");
 
 		const formFirstChild = document.createElement("div");
 
@@ -94,24 +94,36 @@ export function screenController() {
 		const formThirdChild = document.createElement("div");
 
 		const addToDoBtn = document.createElement("button");
-		addToDoBtn.textContent = btnText;
+		addToDoBtn.textContent = "Add to Do";
 		addToDoBtn.classList.add("create-todo-btn");
+		addToDoBtn.style.display = addBtnDisplay;
+
+		const editToDoBtn = document.createElement("button");
+		editToDoBtn.classList.add("edit-todo-btn");
+		editToDoBtn.style.display = editBtnDisplay;
+
 		formThirdChild.appendChild(addToDoBtn);
 
 		form.appendChild(formFirstChild);
 		form.appendChild(formSecondChild);
 		form.appendChild(formThirdChild);
+		dialog.appendChild(form);
+
+		changePriorityEvent();
 	};
 
-	createTaskForm();
 	const showForm = () => {
 		dialog.showModal();
 	};
 	const closeForm = () => {
 		dialog.close();
-		form.reset();
+		document.querySelector("form").reset();
 	};
-	addBtn.addEventListener("click", showForm);
+	addBtn.addEventListener("click", () => {
+		createTaskForm();
+		showForm();
+		createToDoEvent();
+	});
 	closeBtn.addEventListener("click", closeForm);
 
 	const createToDo = () => {
@@ -123,7 +135,7 @@ export function screenController() {
 		displayToDo();
 	};
 
-	const createToDoHTML = () => {
+	const createToDoHTML = (id, title, dueDate) => {
 		const toDoDiv = document.createElement("div");
 		toDoDiv.classList.add("to-do");
 
@@ -133,6 +145,7 @@ export function screenController() {
 		isCompletedBtn.textContent = "X";
 
 		const titleHeading = document.createElement("h2");
+		titleHeading.textContent = title;
 
 		toDoDivFirstChild.appendChild(isCompletedBtn);
 		toDoDivFirstChild.appendChild(titleHeading);
@@ -140,17 +153,21 @@ export function screenController() {
 		const toDoDivSecondChild = document.createElement("div");
 
 		const date = document.createElement("div");
+		date.textContent = dueDate;
 
 		const detailsBtn = document.createElement("button");
 		detailsBtn.textContent = "details";
 		detailsBtn.classList.add("detail-btn");
+		detailsBtn.dataset.id = `${id}`;
 
 		const editBtn = document.createElement("button");
 		editBtn.textContent = "edit";
 		editBtn.classList.add("edit-btn");
+		editBtn.dataset.id = `${id}`;
 		const deleteBtn = document.createElement("button");
 		deleteBtn.classList.add("delete-btn");
 		deleteBtn.textContent = "delete";
+		deleteBtn.dataset.id = `${id}`;
 
 		toDoDivSecondChild.appendChild(date);
 		toDoDivSecondChild.appendChild(detailsBtn);
@@ -161,33 +178,28 @@ export function screenController() {
 		toDoDiv.appendChild(toDoDivSecondChild);
 
 		mainDiv.appendChild(toDoDiv);
-
-		return [titleHeading, date, deleteBtn, detailsBtn, editBtn];
 	};
 
 	const displayToDo = () => {
 		mainDiv.textContent = "";
 
 		toDo.getToDoArray().forEach((task) => {
-			const [titleHeading, date, deleteBtn, detailsBtn, editBtn] =
-				createToDoHTML();
-			titleHeading.textContent = `${task.title}`;
-			deleteBtn.dataset.id = `${task.id}`;
-			editBtn.dataset.id = `${task.id}`;
-			detailsBtn.dataset.id = `${task.id}`;
-			date.textContent = `${task.dueDate}`;
+			createToDoHTML(task.id, task.title, task.dueDate);
 		});
 
 		deleteTaskEvent();
 		showDescriptionEvent();
 	};
-	const createToDoBtn = document.querySelector(".create-todo-btn");
-	createToDoBtn.addEventListener("click", (e) => {
-		e.preventDefault();
-		createToDo();
-		dialog.close();
-		form.reset();
-	});
+
+	const createToDoEvent = () => {
+		const createToDoBtn = document.querySelector(".create-todo-btn");
+		createToDoBtn.addEventListener("click", (e) => {
+			e.preventDefault();
+			createToDo();
+			dialog.close();
+			dialog.removeChild(document.querySelector("form"));
+		});
+	};
 
 	const deleteTask = (id) => {
 		toDo.removeTask(id);
@@ -312,14 +324,13 @@ export function screenController() {
 			});
 		});
 	};
-	changePriorityEvent();
 
 	const editForm = (id) => {
 		let index = findToDo(id);
 		let object = toDo.getToDoArray()[index];
 	};
 	const editEvent = () => {
-		const editBtns = document.querySelectorAll("edit-btn");
+		const editBtns = document.querySelectorAll(".edit-btn");
 
 		editBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {

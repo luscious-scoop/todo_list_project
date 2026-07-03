@@ -91,6 +91,8 @@ function taskController() {
 				priority !== null
 					? priority
 					: obj.getToDoArray()[index].priority;
+
+			console.log(obj);
 		} else {
 			console.log("Not found");
 			return;
