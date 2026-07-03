@@ -72,14 +72,12 @@ function taskController() {
 	};
 
 	const editTask = (
-		id,
+		index,
 		title = null,
 		description = null,
 		dueDate = null,
 		priority = null,
 	) => {
-		let index = obj.findTask(id);
-
 		if (index || index === 0) {
 			obj.getToDoArray()[index].title =
 				title !== null ? title : obj.getToDoArray()[index].title;

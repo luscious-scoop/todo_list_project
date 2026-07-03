@@ -12,7 +12,13 @@ export function screenController() {
 	const closeBtn = document.querySelector(".close-btn");
 	const addBtn = document.querySelector(".add-btn");
 
-	const createTaskForm = () => {
+	const createTaskForm = (
+		title = "",
+		description = "",
+		dueDate = "2026-07-03",
+		priority = "",
+		btnText = "Add To Do",
+	) => {
 		form.textContent = "";
 
 		const formFirstChild = document.createElement("div");
@@ -20,6 +26,7 @@ export function screenController() {
 		const titleInput = document.createElement("input");
 		titleInput.type = "text";
 		titleInput.placeholder = "Title: Pay bills";
+		titleInput.value = title;
 
 		const descriptionInput = document.createElement("textarea");
 		descriptionInput.rows = "10";
@@ -27,6 +34,8 @@ export function screenController() {
 		descriptionInput.style.resize = "none";
 		descriptionInput.placeholder =
 			"Details: e.g internet, phone , electricity.";
+
+		descriptionInput.value = description;
 
 		formFirstChild.appendChild(titleInput);
 		formFirstChild.appendChild(descriptionInput);
@@ -40,6 +49,7 @@ export function screenController() {
 
 		const dateInput = document.createElement("input");
 		dateInput.type = "date";
+		dateInput.value = dueDate;
 
 		dateDiv.appendChild(dateHeader);
 		dateDiv.appendChild(dateInput);
@@ -59,7 +69,13 @@ export function screenController() {
 		mediumPriorityButton.textContent = "Medium";
 		highPriorityButton.textContent = "High";
 
-		lowPriorityButton.classList.add("selected");
+		if (priority === "High") {
+			highPriorityButton.classList.add("selected");
+		} else if (priority === "Medium") {
+			mediumPriorityButton.classList.add("selected");
+		} else {
+			lowPriorityButton.classList.add("selected");
+		}
 
 		lowPriorityButton.type = "button";
 		mediumPriorityButton.type = "button";
@@ -78,7 +94,7 @@ export function screenController() {
 		const formThirdChild = document.createElement("div");
 
 		const addToDoBtn = document.createElement("button");
-		addToDoBtn.textContent = "Add To Do";
+		addToDoBtn.textContent = btnText;
 		addToDoBtn.classList.add("create-todo-btn");
 		formThirdChild.appendChild(addToDoBtn);
 
@@ -131,6 +147,7 @@ export function screenController() {
 
 		const editBtn = document.createElement("button");
 		editBtn.textContent = "edit";
+		editBtn.classList.add("edit-btn");
 		const deleteBtn = document.createElement("button");
 		deleteBtn.classList.add("delete-btn");
 		deleteBtn.textContent = "delete";
@@ -189,7 +206,7 @@ export function screenController() {
 	};
 
 	const createDescriptionDialog = (id) => {
-		let index = findDescription(id);
+		let index = findToDo(id);
 		let object = toDo.getToDoArray()[index];
 
 		const descriptionDialog = document.createElement("dialog");
@@ -255,7 +272,7 @@ export function screenController() {
 		closeDescriptionEvent();
 	};
 
-	const findDescription = (id) => {
+	const findToDo = (id) => {
 		let index = toDo.findTask(id);
 		if (index || index === 0) {
 			return index;
@@ -297,8 +314,17 @@ export function screenController() {
 	};
 	changePriorityEvent();
 
-	const editToDo = (id, title, description, dueDate, priority) => {
-		toDo.editTask(id, title, description, dueDate, priority);
+	const editForm = (id) => {
+		let index = findToDo(id);
+		let object = toDo.getToDoArray()[index];
 	};
-	const createEditForm = () => {};
+	const editEvent = () => {
+		const editBtns = document.querySelectorAll("edit-btn");
+
+		editBtns.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				editForm(btn.dataset.id);
+			});
+		});
+	};
 }
