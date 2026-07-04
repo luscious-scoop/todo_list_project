@@ -68,6 +68,10 @@ function taskController() {
 
 		if (index || index === 0) {
 			obj.getToDoArray()[index].toggleStatus();
+			console.log(obj.getToDoArray()[index]);
+			return obj.getToDoArray()[index].isCompleted;
+		} else {
+			console.log("here");
 		}
 	};
 

@@ -146,7 +146,9 @@ export function screenController() {
 		const toDoDivFirstChild = document.createElement("div");
 
 		const isCompletedBtn = document.createElement("button");
-		isCompletedBtn.textContent = "X";
+		isCompletedBtn.textContent = "";
+		isCompletedBtn.classList.add("is-complete-btn");
+		isCompletedBtn.dataset.id = `${id}`;
 
 		const titleHeading = document.createElement("h2");
 		titleHeading.textContent = title;
@@ -194,6 +196,7 @@ export function screenController() {
 		deleteTaskEvent();
 		showDescriptionEvent();
 		editShowEvent();
+		isComplete();
 	};
 
 	const createToDoEvent = () => {
@@ -368,6 +371,21 @@ export function screenController() {
 			displayToDo();
 			dialog.close();
 			dialog.removeChild(document.querySelector("form"));
+		});
+	};
+
+	const isComplete = () => {
+		const isCompleteBtns = document.querySelectorAll(".is-complete-btn");
+
+		isCompleteBtns.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				let status = toDo.toggleCompleteStatus(btn.dataset.id);
+				if (status) {
+					btn.textContent = "D";
+				} else {
+					btn.textContent = "";
+				}
+			});
 		});
 	};
 }
