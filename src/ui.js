@@ -1,6 +1,8 @@
 import { taskController, task, notes, notesController } from "./task.js";
 
 export function screenController() {
+	let editIndex = null;
+	let editObject = null;
 	const mainDiv = document.querySelector("main");
 	const toDo = taskController();
 
@@ -16,10 +18,9 @@ export function screenController() {
 		description = "",
 		dueDate = "2026-07-03",
 		priority = "",
-		addBtnDisplay = "Block",
+		addBtnDisplay = "block",
 		editBtnDisplay = "none",
 	) => {
-		dialog.removeChild(document.querySelector("form"));
 		const form = document.createElement("form");
 
 		const formFirstChild = document.createElement("div");
@@ -102,6 +103,8 @@ export function screenController() {
 		const editToDoBtn = document.createElement("button");
 		editToDoBtn.classList.add("edit-todo-btn");
 		editToDoBtn.style.display = editBtnDisplay;
+		editToDoBtn.textContent = "Edit";
+		formThirdChild.appendChild(editToDoBtn);
 
 		formThirdChild.appendChild(addToDoBtn);
 
@@ -118,6 +121,7 @@ export function screenController() {
 	};
 	const closeForm = () => {
 		dialog.close();
+		dialog.removeChild(document.querySelector("form"));
 	};
 	addBtn.addEventListener("click", () => {
 		createTaskForm();
@@ -189,6 +193,7 @@ export function screenController() {
 
 		deleteTaskEvent();
 		showDescriptionEvent();
+		editShowEvent();
 	};
 
 	const createToDoEvent = () => {
@@ -197,6 +202,7 @@ export function screenController() {
 			e.preventDefault();
 			createToDo();
 			dialog.close();
+			dialog.removeChild(document.querySelector("form"));
 		});
 	};
 
@@ -325,16 +331,43 @@ export function screenController() {
 	};
 
 	const editForm = (id) => {
-		let index = findToDo(id);
-		let object = toDo.getToDoArray()[index];
-	};
-	const editEvent = () => {
-		const editBtns = document.querySelectorAll(".edit-btn");
+		editIndex = toDo.findTask(id);
+		editObject = toDo.getToDoArray()[editIndex];
 
+		createTaskForm(
+			editObject.title,
+			editObject.description,
+			editObject.dueDate,
+			editObject.priority,
+			"none",
+			"block",
+		);
+		confirmEditEvent();
+	};
+
+	const editShowEvent = () => {
+		const editBtns = document.querySelectorAll(".edit-btn");
 		editBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
 				editForm(btn.dataset.id);
+				dialog.showModal();
 			});
+		});
+	};
+	const confirmEditEvent = () => {
+		const conFirmEditBtn = document.querySelector(".edit-todo-btn");
+		conFirmEditBtn.addEventListener("click", (e) => {
+			e.preventDefault();
+			toDo.editTask(
+				editIndex,
+				document.querySelector('input[type="text"]').value,
+				document.querySelector("textarea").value,
+				document.querySelector('input[type="date"]').value,
+				document.querySelector(".selected").textContent,
+			);
+			displayToDo();
+			dialog.close();
+			dialog.removeChild(document.querySelector("form"));
 		});
 	};
 }
