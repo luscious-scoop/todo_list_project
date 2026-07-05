@@ -6,6 +6,8 @@ export function screenController() {
 	const mainDiv = document.querySelector("main");
 	const toDo = taskController();
 
+	const getToDoObject = () => toDo;
+
 	const homeBtn = document.querySelector(".home");
 
 	const dialog = document.querySelector(".main-dialog");
@@ -135,7 +137,9 @@ export function screenController() {
 		const description = document.querySelector("textarea").value;
 		const dueDate = document.querySelector('input[type="date"]').value;
 		const priority = document.querySelector(".selected").textContent;
-		toDo.addTask(new task(title, description, dueDate, priority));
+		getToDoObject().addTask(
+			new task(title, description, dueDate, priority),
+		);
 		displayToDo();
 	};
 
@@ -189,9 +193,11 @@ export function screenController() {
 	const displayToDo = () => {
 		mainDiv.textContent = "";
 
-		toDo.getToDoArray().forEach((task) => {
-			createToDoHTML(task.id, task.title, task.dueDate);
-		});
+		getToDoObject()
+			.getToDoArray()
+			.forEach((task) => {
+				createToDoHTML(task.id, task.title, task.dueDate);
+			});
 
 		deleteTaskEvent();
 		showDescriptionEvent();
@@ -210,7 +216,7 @@ export function screenController() {
 	};
 
 	const deleteTask = (id) => {
-		toDo.removeTask(id);
+		getToDoObject().removeTask(id);
 		displayToDo();
 	};
 
@@ -227,7 +233,7 @@ export function screenController() {
 
 	const createDescriptionDialog = (id) => {
 		let index = findToDo(id);
-		let object = toDo.getToDoArray()[index];
+		let object = getToDoObject().getToDoArray()[index];
 
 		const descriptionDialog = document.createElement("dialog");
 		descriptionDialog.classList.add("description-dialog");
@@ -293,7 +299,7 @@ export function screenController() {
 	};
 
 	const findToDo = (id) => {
-		let index = toDo.findTask(id);
+		let index = getToDoObject().findTask(id);
 		if (index || index === 0) {
 			return index;
 		} else {
@@ -334,8 +340,8 @@ export function screenController() {
 	};
 
 	const editForm = (id) => {
-		editIndex = toDo.findTask(id);
-		editObject = toDo.getToDoArray()[editIndex];
+		editIndex = getToDoObject().findTask(id);
+		editObject = getToDoObject().getToDoArray()[editIndex];
 
 		createTaskForm(
 			editObject.title,
@@ -379,7 +385,9 @@ export function screenController() {
 
 		isCompleteBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
-				let status = toDo.toggleCompleteStatus(btn.dataset.id);
+				let status = getToDoObject().toggleCompleteStatus(
+					btn.dataset.id,
+				);
 				if (status) {
 					btn.textContent = "D";
 				} else {
@@ -388,5 +396,7 @@ export function screenController() {
 			});
 		});
 	};
-	return {};
+	return {
+		createTaskForm,
+	};
 }
