@@ -398,5 +398,23 @@ export function screenController() {
 	};
 	return {
 		createTaskForm,
+		getToDoObject,
+		showForm,
+		closeForm,
+		createToDo,
+		createToDoHTML,
+		displayToDo,
+		createToDoEvent,
+		deleteTask,
+		deleteTaskEvent,
+		createDescriptionDialog,
+		showDescriptionEvent,
+		closeDescriptionEvent,
+		changePriorityEvent,
+		editForm,
+		editShowEvent,
+		confirmEditEvent,
+		isComplete,
+		findToDo,
 	};
 }
