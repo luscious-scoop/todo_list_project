@@ -2,7 +2,7 @@ import "./style.css";
 
 import { taskController, notes, task, notesController } from "./task.js";
 import { projectController } from "./projects.js";
-import { screenController } from "./ui.js";
+import { screenController, projectsScreenController } from "./ui.js";
 
 /* const obj = taskController();
 
@@ -51,3 +51,4 @@ console.log(projectObject.getAllProjects());
  */
 
 screenController();
+projectsScreenController();

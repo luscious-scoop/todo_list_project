@@ -1,3 +1,4 @@
+import { projectController } from "./projects.js";
 import { taskController, task, notes, notesController } from "./task.js";
 
 export function screenController() {
@@ -416,5 +417,115 @@ export function screenController() {
 		confirmEditEvent,
 		isComplete,
 		findToDo,
+	};
+}
+
+export function projectsScreenController() {
+	const projectsDiv = document.querySelector(".projects");
+	let projectObject = projectController();
+
+	const getProjectObject = () => projectObject;
+
+	const createProjectDialog = () => {
+		const dialog = document.createElement("dialog");
+
+		dialog.classList.add("project-dialog");
+
+		const closeBtn = document.createElement("button");
+		closeBtn.classList.add("project-close");
+		closeBtn.textContent = "X";
+		dialog.appendChild(closeBtn);
+
+		document.querySelector("body").appendChild(dialog);
+	};
+	createProjectDialog();
+	const dialog = document.querySelector(".project-dialog");
+
+	const createProjectForm = () => {
+		const form = document.createElement("form");
+		form.classList.add("project-form");
+		const projectTitle = document.createElement("input");
+		projectTitle.classList.add("project-title-input");
+		projectTitle.type = "text";
+
+		const addProjectBtn = document.createElement("button");
+		addProjectBtn.classList.add("add-project-btn");
+		addProjectBtn.textContent = "Add Project";
+
+		form.appendChild(projectTitle);
+		form.appendChild(addProjectBtn);
+		dialog.appendChild(form);
+		createProjectEvent();
+	};
+
+	const closeFormEvent = () => {
+		const closeBtn = document.querySelector(".project-close");
+		closeBtn.addEventListener("click", () => {
+			dialog.close();
+			dialog.removeChild(document.querySelector(".project-form"));
+		});
+	};
+
+	const openFormBtn = document.querySelector(".open-form-btn");
+	openFormBtn.addEventListener("click", () => {
+		createProjectForm();
+		dialog.showModal();
+	});
+
+	const createProject = () => {
+		const projectName = document.querySelector(
+			".project-title-input",
+		).value;
+
+		getProjectObject().addProject(projectName);
+		displayProject();
+	};
+
+	const createProjectSidebar = (projectName) => {
+		const projectDiv = document.createElement("div");
+		projectDiv.classList.add("project-card");
+
+		const projectBtn = document.createElement("button");
+		projectBtn.classList.add("todo-project");
+		projectBtn.textContent = projectName;
+
+		const deleteBtn = document.createElement("button");
+		deleteBtn.classList.add("project-del-btn");
+		deleteBtn.textContent = "Del";
+
+		deleteBtn.dataset.id = projectName;
+		projectDiv.appendChild(projectBtn);
+		projectDiv.appendChild(deleteBtn);
+
+		projectsDiv.appendChild(projectDiv);
+	};
+
+	const displayProject = () => {
+		projectsDiv.textContent = "";
+		let projects = getProjectObject().getAllProjects();
+		for (let project in projects) {
+			createProjectSidebar(project);
+		}
+		deleteProjectEvent();
+	};
+	const createProjectEvent = () => {
+		const addBtn = document.querySelector(".add-project-btn");
+
+		addBtn.addEventListener("click", (e) => {
+			e.preventDefault();
+			createProject();
+			dialog.close();
+			dialog.removeChild(document.querySelector(".project-form"));
+		});
+	};
+	const deleteProjectEvent = () => {
+		const deleteBtns = document.querySelectorAll(".project-del-btn");
+
+		deleteBtns.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				getProjectObject().deleteProject(btn.dataset.id);
+				displayProject();
+			});
+		});
 	};
 }

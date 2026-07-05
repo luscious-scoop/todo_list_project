@@ -3,7 +3,7 @@ import { taskController, task } from "./task.js";
 export function projectController() {
 	const projects = {};
 
-	const createProject = (name) => {
+	const addProject = (name) => {
 		projects[name] = name;
 	};
 	const getAllProjects = () => projects;
@@ -27,7 +27,7 @@ export function projectController() {
 	};
 	return {
 		deleteProject,
-		createProject,
+		addProject,
 		getAllProjects,
 		getProject,
 	};
