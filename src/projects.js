@@ -4,7 +4,7 @@ export function projectController() {
 	const projects = {};
 
 	const createProject = (name) => {
-		projects[name] = taskController();
+		projects[name] = name;
 	};
 	const getAllProjects = () => projects;
 

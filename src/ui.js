@@ -388,4 +388,5 @@ export function screenController() {
 			});
 		});
 	};
+	return {};
 }
