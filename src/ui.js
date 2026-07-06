@@ -2,10 +2,13 @@ import { projectController } from "./projects.js";
 import { taskController, task, notes, notesController } from "./task.js";
 
 export function screenController() {
+	const projectsDiv = document.querySelector(".projects");
+	let projectObject = projectController();
+
 	let editIndex = null;
 	let editObject = null;
 	const mainDiv = document.querySelector("main");
-	const toDo = taskController();
+	let todo;
 
 	const getToDoObject = () => toDo;
 
@@ -397,32 +400,6 @@ export function screenController() {
 			});
 		});
 	};
-	return {
-		createTaskForm,
-		getToDoObject,
-		showForm,
-		closeForm,
-		createToDo,
-		createToDoHTML,
-		displayToDo,
-		createToDoEvent,
-		deleteTask,
-		deleteTaskEvent,
-		createDescriptionDialog,
-		showDescriptionEvent,
-		closeDescriptionEvent,
-		changePriorityEvent,
-		editForm,
-		editShowEvent,
-		confirmEditEvent,
-		isComplete,
-		findToDo,
-	};
-}
-
-export function projectsScreenController() {
-	const projectsDiv = document.querySelector(".projects");
-	let projectObject = projectController();
 
 	const getProjectObject = () => projectObject;
 
@@ -527,5 +504,27 @@ export function projectsScreenController() {
 				displayProject();
 			});
 		});
+	};
+
+	return {
+		createTaskForm,
+		getToDoObject,
+		showForm,
+		closeForm,
+		createToDo,
+		createToDoHTML,
+		displayToDo,
+		createToDoEvent,
+		deleteTask,
+		deleteTaskEvent,
+		createDescriptionDialog,
+		showDescriptionEvent,
+		closeDescriptionEvent,
+		changePriorityEvent,
+		editForm,
+		editShowEvent,
+		confirmEditEvent,
+		isComplete,
+		findToDo,
 	};
 }
