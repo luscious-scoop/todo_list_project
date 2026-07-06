@@ -167,14 +167,14 @@ export function screenController() {
 		displayToDo();
 	};
 
-	const createToDoHTML = (id, title, dueDate) => {
+	const createToDoHTML = (id, title, dueDate, isComplete) => {
 		const toDoDiv = document.createElement("div");
 		toDoDiv.classList.add("to-do");
 
 		const toDoDivFirstChild = document.createElement("div");
 
 		const isCompletedBtn = document.createElement("button");
-		isCompletedBtn.textContent = "";
+		isCompletedBtn.textContent = isComplete === true ? "D" : "";
 		isCompletedBtn.classList.add("is-complete-btn");
 		isCompletedBtn.dataset.id = `${id}`;
 
@@ -220,7 +220,12 @@ export function screenController() {
 		getToDoObject()
 			.getToDoArray()
 			.forEach((task) => {
-				createToDoHTML(task.id, task.title, task.dueDate);
+				createToDoHTML(
+					task.id,
+					task.title,
+					task.dueDate,
+					task.isCompleted,
+				);
 			});
 
 		deleteTaskEvent();
