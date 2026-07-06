@@ -2,22 +2,42 @@ import { projectController } from "./projects.js";
 import { taskController, task, notes, notesController } from "./task.js";
 
 export function screenController() {
-	const projectsDiv = document.querySelector(".projects");
-	let projectObject = projectController();
-
-	let editIndex = null;
-	let editObject = null;
-	const mainDiv = document.querySelector("main");
-	let todo;
-
-	const getToDoObject = () => toDo;
-
 	const homeBtn = document.querySelector(".home");
 
 	const dialog = document.querySelector(".main-dialog");
 
 	const closeBtn = document.querySelector(".close-btn");
 	const addBtn = document.querySelector(".add-btn");
+	const projectsDiv = document.querySelector(".projects");
+	let projectObject = projectController();
+
+	let editIndex = null;
+	let editObject = null;
+	const mainDiv = document.querySelector("main");
+	let toDo = projectObject.getDefaultProject();
+
+	homeBtn.addEventListener("click", () => {
+		console.log("hy");
+		toDo = projectObject.getDefaultProject();
+		displayToDo();
+	});
+
+	const getProjectEvent = () => {
+		let project;
+		const projectBtns = document.querySelectorAll(".todo-project");
+
+		projectBtns.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				console.log(btn.dataset.id);
+				toDo = projectObject.getProject(btn.textContent);
+
+				displayToDo();
+			});
+		});
+	};
+	getProjectEvent();
+
+	const getToDoObject = () => toDo;
 
 	const createTaskForm = (
 		title = "",
@@ -401,8 +421,6 @@ export function screenController() {
 		});
 	};
 
-	const getProjectObject = () => projectObject;
-
 	const createProjectDialog = () => {
 		const dialog = document.createElement("dialog");
 
@@ -416,7 +434,7 @@ export function screenController() {
 		document.querySelector("body").appendChild(dialog);
 	};
 	createProjectDialog();
-	const dialog = document.querySelector(".project-dialog");
+	const ProjectDialog = document.querySelector(".project-dialog");
 
 	const createProjectForm = () => {
 		const form = document.createElement("form");
@@ -431,22 +449,23 @@ export function screenController() {
 
 		form.appendChild(projectTitle);
 		form.appendChild(addProjectBtn);
-		dialog.appendChild(form);
+		ProjectDialog.appendChild(form);
 		createProjectEvent();
 	};
 
 	const closeFormEvent = () => {
 		const closeBtn = document.querySelector(".project-close");
 		closeBtn.addEventListener("click", () => {
-			dialog.close();
-			dialog.removeChild(document.querySelector(".project-form"));
+			ProjectDialog.close();
+			ProjectDialog.removeChild(document.querySelector(".project-form"));
 		});
 	};
+	closeFormEvent();
 
 	const openFormBtn = document.querySelector(".open-form-btn");
 	openFormBtn.addEventListener("click", () => {
 		createProjectForm();
-		dialog.showModal();
+		ProjectDialog.showModal();
 	});
 
 	const createProject = () => {
@@ -454,7 +473,7 @@ export function screenController() {
 			".project-title-input",
 		).value;
 
-		getProjectObject().addProject(projectName);
+		projectObject.addProject(projectName);
 		displayProject();
 	};
 
@@ -479,11 +498,12 @@ export function screenController() {
 
 	const displayProject = () => {
 		projectsDiv.textContent = "";
-		let projects = getProjectObject().getAllProjects();
+		let projects = projectObject.getAllProjects();
 		for (let project in projects) {
 			createProjectSidebar(project);
 		}
 		deleteProjectEvent();
+		getProjectEvent();
 	};
 	const createProjectEvent = () => {
 		const addBtn = document.querySelector(".add-project-btn");
@@ -491,8 +511,8 @@ export function screenController() {
 		addBtn.addEventListener("click", (e) => {
 			e.preventDefault();
 			createProject();
-			dialog.close();
-			dialog.removeChild(document.querySelector(".project-form"));
+			ProjectDialog.close();
+			ProjectDialog.removeChild(document.querySelector(".project-form"));
 		});
 	};
 	const deleteProjectEvent = () => {
@@ -500,7 +520,7 @@ export function screenController() {
 
 		deleteBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
-				getProjectObject().deleteProject(btn.dataset.id);
+				projectObject.deleteProject(btn.dataset.id);
 				displayProject();
 			});
 		});
