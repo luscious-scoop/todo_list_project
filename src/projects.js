@@ -1,10 +1,11 @@
 import { taskController, task } from "./task.js";
+import { screenController } from "./ui.js";
 
 export function projectController() {
 	const projects = {};
 
 	const addProject = (name) => {
-		projects[name] = name;
+		projects[name] = taskController();
 	};
 	const getAllProjects = () => projects;
 
