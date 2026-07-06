@@ -27,6 +27,7 @@ export function projectController() {
 		for (const key in getAllProjects()) {
 			if (key === name) {
 				delete getAllProjects()[name];
+				console.log(getAllProjects());
 			}
 		}
 	};

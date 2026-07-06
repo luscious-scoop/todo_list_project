@@ -14,12 +14,10 @@ export function screenController() {
 	let editIndex = null;
 	let editObject = null;
 	const mainDiv = document.querySelector("main");
-	let toDo = projectObject.getDefaultProject();
+	let toDo;
 
 	homeBtn.addEventListener("click", () => {
-		console.log("hy");
-		toDo = projectObject.getDefaultProject();
-		displayToDo();
+		defaultProjectInitializer();
 	});
 
 	const getProjectEvent = () => {
@@ -234,6 +232,11 @@ export function screenController() {
 		isComplete();
 	};
 
+	const defaultProjectInitializer = () => {
+		toDo = projectObject.getDefaultProject();
+		displayToDo();
+	};
+
 	const createToDoEvent = () => {
 		const createToDoBtn = document.querySelector(".create-todo-btn");
 		createToDoBtn.addEventListener("click", (e) => {
@@ -255,7 +258,6 @@ export function screenController() {
 		deleteBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
 				deleteTask(btn.dataset.id);
-				console.log("hy");
 			});
 		});
 	};
@@ -527,9 +529,12 @@ export function screenController() {
 			btn.addEventListener("click", () => {
 				projectObject.deleteProject(btn.dataset.id);
 				displayProject();
+				defaultProjectInitializer();
 			});
 		});
 	};
+
+	defaultProjectInitializer();
 
 	return {
 		createTaskForm,
