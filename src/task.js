@@ -1,3 +1,5 @@
+/* import { setLocalStorageItem, getLocalStorageItem } from "./localstorage"; */
+
 class notes {
 	constructor(title, description) {
 		this.id = crypto.randomUUID();
