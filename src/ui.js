@@ -4,7 +4,7 @@ import { taskController, task, notes, notesController } from "./task.js";
 export function screenController() {
 	const homeBtn = document.querySelector(".home");
 	const notesSelectionBtn = document.querySelector(".notes-show-form-btn");
-	const notesShowForm = document.querySelector(".notes-show-form-btn");
+	const notesShowFormBtn = document.querySelector(".notes-show-form-btn");
 
 	const dialog = document.querySelector(".main-dialog");
 
@@ -534,6 +534,20 @@ export function screenController() {
 				defaultProjectInitializer();
 			});
 		});
+	};
+
+	const createNotesForm = (title = "", description = "") => {
+		const notesForm = document.createElement("form");
+		notesForm.classList.add("notes-form");
+
+		const notesTitleInput = document.createElement("input");
+		notesTitleInput.type = "text";
+		notesTitleInput.value = title;
+
+		const notesDescriptionInput = document.createElement("textarea");
+		notesDescriptionInput.classList.add("notes-desc-input");
+
+		notesDescriptionInput.value = description;
 	};
 
 	defaultProjectInitializer();
