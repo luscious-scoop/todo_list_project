@@ -3,6 +3,8 @@ import { taskController, task, notes, notesController } from "./task.js";
 
 export function screenController() {
 	const homeBtn = document.querySelector(".home");
+	const notesSelectionBtn = document.querySelector(".notes-show-form-btn");
+	const notesShowForm = document.querySelector(".notes-show-form-btn");
 
 	const dialog = document.querySelector(".main-dialog");
 
