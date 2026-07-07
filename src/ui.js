@@ -3,7 +3,7 @@ import { taskController, task, notes, notesController } from "./task.js";
 
 export function screenController() {
 	const homeBtn = document.querySelector(".home");
-	const notesSelectionBtn = document.querySelector(".notes-show-form-btn");
+	const notesSelectionBtn = document.querySelector(".notes-selection-btn");
 	const notesShowFormBtn = document.querySelector(".notes-show-form-btn");
 
 	const dialog = document.querySelector(".main-dialog");
@@ -12,6 +12,8 @@ export function screenController() {
 	const addBtn = document.querySelector(".add-btn");
 	const projectsDiv = document.querySelector(".projects");
 	let projectObject = projectController();
+
+	const notesObject = notesController();
 
 	let editIndex = null;
 	let editObject = null;
@@ -536,6 +538,50 @@ export function screenController() {
 		});
 	};
 
+	const createNotesDialog = () => {
+		const notesDialog = document.createElement("dialog");
+		notesDialog.classList.add("notes-dialog");
+		const headerDiv = document.createElement("div");
+		headerDiv.classList.add("notes-header");
+
+		const dialogHeader = document.createElement("h2");
+		dialogHeader.classList.add("dialog-header");
+		dialogHeader.textContent = "Create a new Note";
+
+		const notesDialogCloseBtn = document.createElement("button");
+		notesDialogCloseBtn.type = "button";
+		notesDialogCloseBtn.textContent = "X";
+		notesDialogCloseBtn.classList.add("notes-dialog-close-btn");
+
+		headerDiv.appendChild(dialogHeader);
+		headerDiv.appendChild(notesDialogCloseBtn);
+
+		notesDialog.appendChild(headerDiv);
+		document.querySelector("body").appendChild(notesDialog);
+	};
+	createNotesDialog();
+
+	const removeNotesForm = () => {
+		const notesDialog = document.querySelector(".notes-dialog");
+		const notesForm = document.querySelector(".notes-form");
+
+		notesDialog.removeChild(notesForm);
+	};
+
+	const notesCloseDialog = () => {
+		const notesDialog = document.querySelector(".notes-dialog");
+		const notesDialogCloseBtn = document.querySelector(
+			".notes-dialog-close-btn",
+		);
+
+		notesDialogCloseBtn.addEventListener("click", () => {
+			notesDialog.close();
+			removeNotesForm();
+		});
+	};
+
+	notesCloseDialog();
+
 	const createNotesForm = (title = "", description = "") => {
 		const notesForm = document.createElement("form");
 		notesForm.classList.add("notes-form");
@@ -543,12 +589,114 @@ export function screenController() {
 		const notesTitleInput = document.createElement("input");
 		notesTitleInput.type = "text";
 		notesTitleInput.value = title;
+		notesTitleInput.classList.add("notes-title-input");
 
 		const notesDescriptionInput = document.createElement("textarea");
 		notesDescriptionInput.classList.add("notes-desc-input");
 
 		notesDescriptionInput.value = description;
+
+		const notesInputDiv = document.createElement("div");
+		notesInputDiv.classList.add("notes-input-div");
+
+		notesInputDiv.appendChild(notesTitleInput);
+		notesInputDiv.appendChild(notesDescriptionInput);
+
+		const createNotesBtnDiv = document.createElement("div");
+		createNotesBtnDiv.classList.add("create-notes-div");
+
+		const createNoteBtn = document.createElement("button");
+		createNoteBtn.classList.add("notes-add-btn");
+		createNoteBtn.textContent = "Add Note";
+
+		createNotesBtnDiv.appendChild(createNoteBtn);
+
+		notesForm.appendChild(notesInputDiv);
+		notesForm.appendChild(createNotesBtnDiv);
+		const notesDialog = document.querySelector(".notes-dialog");
+
+		notesDialog.appendChild(notesForm);
+		createNotesEvent();
 	};
 
-	defaultProjectInitializer();
+	notesShowFormBtn.addEventListener("click", () => {
+		createNotesForm();
+		const notesDialog = document.querySelector(".notes-dialog");
+		notesDialog.showModal();
+	});
+
+	const createNote = () => {
+		const notesTitleInput =
+			document.querySelector(".notes-title-input").value;
+		const notesDescriptionInput =
+			document.querySelector(".notes-desc-input").value;
+
+		notesObject.addTask(new notes(notesTitleInput, notesDescriptionInput));
+	};
+
+	const createNotesEvent = () => {
+		const notesDialog = document.querySelector(".notes-dialog");
+
+		const createNoteBtn = document.querySelector(".notes-add-btn");
+
+		createNoteBtn.addEventListener("click", (e) => {
+			e.preventDefault();
+			createNote();
+			notesDialog.close();
+			removeNotesForm();
+		});
+	};
+	const notesDiv = document.querySelector(".notes-container");
+	const createNotesHTML = (id, notesTitle, notesDescription) => {
+		const notesCard = document.createElement("div");
+		notesCard.classList.add("notes-card");
+		const noteTitle = document.createElement("h2");
+
+		const notesDeleteDiv = document.createElement("div");
+		notesDeleteDiv.classList.add("notes-del-div");
+
+		const notesDeleteBtn = document.createElement("button");
+		notesDeleteBtn.textContent = "X";
+		notesDeleteBtn.dataset.id = id;
+		notesDeleteBtn.classList.add("notes-del-btn");
+
+		notesDeleteDiv.appendChild(notesDeleteBtn);
+
+		noteTitle.textContent = notesTitle;
+
+		const noteDescription = document.createElement("h2");
+
+		noteDescription.textContent = notesDescription;
+
+		notesCard.appendChild(noteTitle);
+		notesCard.appendChild(noteDescription);
+		notesCard.appendChild(notesDeleteDiv);
+		mainDiv.appendChild(notesCard);
+	};
+
+	const displayNotes = () => {
+		mainDiv.textContent = "";
+
+		notesObject.getToDoArray().forEach((note) => {
+			createNotesHTML(note.id, note.title, note.description);
+			console.log(note);
+		});
+		deleteNote();
+	};
+
+	const deleteNote = () => {
+		const notesDeleteBtns = document.querySelectorAll(".notes-del-btn");
+
+		notesDeleteBtns.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				notesObject.removeTask(btn.dataset.id);
+				displayNotes();
+			});
+		});
+	};
+	notesSelectionBtn.addEventListener("click", () => {
+		displayNotes();
+	});
+
+	/* defaultProjectInitializer(); */
 }
