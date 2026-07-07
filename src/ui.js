@@ -698,5 +698,5 @@ export function screenController() {
 		displayNotes();
 	});
 
-	/* defaultProjectInitializer(); */
+	defaultProjectInitializer();
 }
