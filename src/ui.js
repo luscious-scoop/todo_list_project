@@ -18,7 +18,7 @@ export function screenController() {
 	let editIndex = null;
 	let editObject = null;
 	const mainDiv = document.querySelector("main");
-	let toDo;
+	let toDo = projectObject.getDefaultProject();
 
 	homeBtn.addEventListener("click", () => {
 		defaultProjectInitializer();
@@ -163,9 +163,13 @@ export function screenController() {
 		const description = document.querySelector("textarea").value;
 		const dueDate = document.querySelector('input[type="date"]').value;
 		const priority = document.querySelector(".selected").textContent;
-		getToDoObject().addTask(
-			new task(title, description, dueDate, priority),
-		);
+
+		if (title !== "" || description !== "" || dueDate !== "") {
+			getToDoObject().addTask(
+				new task(title, description, dueDate, priority, false),
+			);
+		}
+
 		displayToDo();
 	};
 
@@ -485,6 +489,7 @@ export function screenController() {
 		).value;
 
 		projectObject.addProject(projectName);
+
 		displayProject();
 	};
 
@@ -697,6 +702,42 @@ export function screenController() {
 	notesSelectionBtn.addEventListener("click", () => {
 		displayNotes();
 	});
+	const createProjectsOnReload = () => {
+		let projects = projectObject.getAllProjects();
+		let data = projectObject.getProjectsData();
+		if (
+			Object.keys(projects).length === 0 &&
+			Object.keys(data).length !== 0
+		) {
+			for (let project in data) {
+				projectObject.addProject(project);
+				console.log("hey");
+			}
 
-	defaultProjectInitializer();
+			displayProject();
+		}
+	};
+
+	const createToDoOnReload = () => {
+		if (getToDoObject().getToDoArray().length === 0) {
+			getToDoObject()
+				.getDataArray()
+				.forEach((item) => {
+					getToDoObject().addTask(
+						new task(
+							item.title,
+							item.description,
+							item.dueDate,
+							item.priority,
+							item.isCompleted,
+						),
+					);
+				});
+			displayToDo();
+			return;
+		} else {
+		}
+	};
+	createProjectsOnReload();
+	createToDoOnReload();
 }

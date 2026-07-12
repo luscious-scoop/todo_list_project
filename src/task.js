@@ -1,4 +1,4 @@
-/* import { setLocalStorageItem, getLocalStorageItem } from "./localstorage"; */
+import { setLocalStorageItem, getLocalStorageItem } from "./localstorage.js";
 
 class notes {
 	constructor(title, description) {
@@ -9,11 +9,11 @@ class notes {
 }
 
 class task extends notes {
-	constructor(title, description, dueDate, priority) {
+	constructor(title, description, dueDate, priority, isCompleted = false) {
 		super(title, description);
 		this.dueDate = dueDate;
 		this.priority = priority;
-		this.isCompleted = false;
+		this.isCompleted = isCompleted;
 	}
 	toggleStatus() {
 		this.isCompleted = !this.isCompleted;
@@ -22,11 +22,35 @@ class task extends notes {
 
 function toDoController() {
 	const toDoArray = [];
+	const data = getLocalStorageItem("data") || [];
+
+	const getDataArray = () => data;
 
 	const getToDoArray = () => toDoArray;
 
+	const checkDataDuplicates = (data) => {
+		let isDuplicate = false;
+		getDataArray().forEach((item) => {
+			if (item.title === data) {
+				isDuplicate = true;
+			}
+		});
+
+		return isDuplicate;
+	};
 	const addTask = (object) => {
-		toDoArray.push(object);
+		getToDoArray().push(object);
+		if (checkDataDuplicates(object.title)) {
+			return;
+		}
+		getDataArray().push({
+			title: object.title,
+			description: object.description,
+			dueDate: object.dueDate,
+			priority: object.priority,
+			isCompleted: object.isCompleted,
+		});
+		setLocalStorageItem("data", getDataArray());
 	};
 
 	const printToDoList = () => {
@@ -46,7 +70,9 @@ function toDoController() {
 
 		console.log("I am here");
 		if (index || index === 0) {
-			toDoArray.splice(index, 1);
+			getToDoArray().splice(index, 1);
+			getDataArray().splice(index, 1);
+			setLocalStorageItem("data", getDataArray());
 		} else {
 			console.log("not found");
 		}
@@ -54,6 +80,7 @@ function toDoController() {
 	};
 
 	return {
+		getDataArray,
 		getToDoArray,
 		addTask,
 		removeTask,
@@ -71,6 +98,9 @@ function taskController() {
 		if (index || index === 0) {
 			obj.getToDoArray()[index].toggleStatus();
 			console.log(obj.getToDoArray()[index]);
+			obj.getDataArray()[index].isCompleted =
+				obj.getToDoArray()[index].isCompleted;
+			setLocalStorageItem("data", obj.getDataArray());
 			return obj.getToDoArray()[index].isCompleted;
 		} else {
 			console.log("here");
@@ -97,6 +127,15 @@ function taskController() {
 				priority !== null
 					? priority
 					: obj.getToDoArray()[index].priority;
+
+			obj.getDataArray()[index].title = obj.getToDoArray()[index].title;
+			obj.getDataArray()[index].description =
+				obj.getToDoArray()[index].description;
+			obj.getDataArray()[index].dueDate =
+				obj.getToDoArray()[index].dueDate;
+			obj.getDataArray()[index].priority =
+				obj.getToDoArray()[index].priority;
+			setLocalStorageItem("data", obj.getDataArray());
 
 			console.log(obj);
 		} else {
