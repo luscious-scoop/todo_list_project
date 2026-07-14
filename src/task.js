@@ -1,4 +1,8 @@
-import { setLocalStorageItem, getLocalStorageItem } from "./localstorage.js";
+import {
+	setLocalStorageItem,
+	getLocalStorageItem,
+	projectsRawDataController,
+} from "./localstorage.js";
 
 class notes {
 	constructor(title, description) {
@@ -22,35 +26,14 @@ class task extends notes {
 
 function toDoController() {
 	const toDoArray = [];
-	const data = getLocalStorageItem("data") || [];
-
-	const getDataArray = () => data;
+	let rawDataController = projectsRawDataController();
 
 	const getToDoArray = () => toDoArray;
 
-	const checkDataDuplicates = (data) => {
-		let isDuplicate = false;
-		getDataArray().forEach((item) => {
-			if (item.title === data) {
-				isDuplicate = true;
-			}
-		});
-
-		return isDuplicate;
-	};
-	const addTask = (object) => {
+	const addTask = (key, object) => {
 		getToDoArray().push(object);
-		if (checkDataDuplicates(object.title)) {
-			return;
-		}
-		getDataArray().push({
-			title: object.title,
-			description: object.description,
-			dueDate: object.dueDate,
-			priority: object.priority,
-			isCompleted: object.isCompleted,
-		});
-		setLocalStorageItem("data", getDataArray());
+		console.log(key);
+		rawDataController.addObject(key, object);
 	};
 
 	const printToDoList = () => {
@@ -65,14 +48,13 @@ function toDoController() {
 		}
 		return false;
 	};
-	const removeTask = (id) => {
+	const removeTask = (key, id) => {
 		let index = findTask(id);
 
 		console.log("I am here");
 		if (index || index === 0) {
 			getToDoArray().splice(index, 1);
-			getDataArray().splice(index, 1);
-			setLocalStorageItem("data", getDataArray());
+			rawDataController.removeObject(key, index);
 		} else {
 			console.log("not found");
 		}
@@ -80,7 +62,6 @@ function toDoController() {
 	};
 
 	return {
-		getDataArray,
 		getToDoArray,
 		addTask,
 		removeTask,
@@ -91,16 +72,15 @@ function toDoController() {
 
 function taskController() {
 	let obj = toDoController();
+	let rawDataController = projectsRawDataController();
 
-	const toggleCompleteStatus = (id) => {
+	const toggleCompleteStatus = (key, id) => {
 		let index = obj.findTask(id);
 
 		if (index || index === 0) {
 			obj.getToDoArray()[index].toggleStatus();
-			console.log(obj.getToDoArray()[index]);
-			obj.getDataArray()[index].isCompleted =
-				obj.getToDoArray()[index].isCompleted;
-			setLocalStorageItem("data", obj.getDataArray());
+			let status = obj.getToDoArray()[index].isCompleted;
+			rawDataController.toggleDataStatus(key, index, status);
 			return obj.getToDoArray()[index].isCompleted;
 		} else {
 			console.log("here");
@@ -108,6 +88,7 @@ function taskController() {
 	};
 
 	const editTask = (
+		key,
 		index,
 		title = null,
 		description = null,
@@ -128,14 +109,12 @@ function taskController() {
 					? priority
 					: obj.getToDoArray()[index].priority;
 
-			obj.getDataArray()[index].title = obj.getToDoArray()[index].title;
-			obj.getDataArray()[index].description =
-				obj.getToDoArray()[index].description;
-			obj.getDataArray()[index].dueDate =
-				obj.getToDoArray()[index].dueDate;
-			obj.getDataArray()[index].priority =
-				obj.getToDoArray()[index].priority;
-			setLocalStorageItem("data", obj.getDataArray());
+			rawDataController.editObject(key, index, {
+				title: obj.getToDoArray()[index].title,
+				description: obj.getToDoArray()[index].description,
+				dueDate: obj.getToDoArray()[index].dueDate,
+				priority: obj.getToDoArray()[index].priority,
+			});
 
 			console.log(obj);
 		} else {

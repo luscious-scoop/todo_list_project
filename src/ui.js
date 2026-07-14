@@ -1,5 +1,6 @@
 import { projectController } from "./projects.js";
 import { taskController, task, notes, notesController } from "./task.js";
+import { projectsRawDataController } from "./localstorage.js";
 
 export function screenController() {
 	const homeBtn = document.querySelector(".home");
@@ -12,8 +13,17 @@ export function screenController() {
 	const addBtn = document.querySelector(".add-btn");
 	const projectsDiv = document.querySelector(".projects");
 	let projectObject = projectController();
+	let rawDataController = projectsRawDataController();
 
 	const notesObject = notesController();
+
+	let currentRawDataArray;
+
+	const changeCurrentRawDataArray = (key = "df") => {
+		currentRawDataArray = key;
+	};
+
+	changeCurrentRawDataArray();
 
 	let editIndex = null;
 	let editObject = null;
@@ -26,6 +36,7 @@ export function screenController() {
 		toDo = controller;
 	};
 
+	changeToDoController();
 	homeBtn.addEventListener("click", () => {
 		defaultProjectInitializer();
 	});
@@ -37,6 +48,7 @@ export function screenController() {
 		projectBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
 				changeToDoController(projectObject.getProject(btn.textContent));
+				changeCurrentRawDataArray(btn.textContent);
 
 				displayToDo();
 			});
@@ -171,11 +183,10 @@ export function screenController() {
 
 		if (title !== "" || description !== "" || dueDate !== "") {
 			getToDoObject().addTask(
+				currentRawDataArray,
 				new task(title, description, dueDate, priority, false),
 			);
 		}
-
-		displayToDo();
 	};
 
 	const createToDoHTML = (id, title, dueDate, isComplete) => {
@@ -247,6 +258,7 @@ export function screenController() {
 
 	const defaultProjectInitializer = () => {
 		changeToDoController();
+		changeCurrentRawDataArray();
 		displayToDo();
 	};
 
@@ -255,13 +267,14 @@ export function screenController() {
 		createToDoBtn.addEventListener("click", (e) => {
 			e.preventDefault();
 			createToDo();
+			displayToDo();
 			dialog.close();
 			dialog.removeChild(document.querySelector("form"));
 		});
 	};
 
 	const deleteTask = (id) => {
-		getToDoObject().removeTask(id);
+		getToDoObject().removeTask(currentRawDataArray, id);
 		displayToDo();
 	};
 
@@ -411,7 +424,8 @@ export function screenController() {
 		const conFirmEditBtn = document.querySelector(".edit-todo-btn");
 		conFirmEditBtn.addEventListener("click", (e) => {
 			e.preventDefault();
-			toDo.editTask(
+			getToDoObject().editTask(
+				currentRawDataArray,
 				editIndex,
 				document.querySelector('input[type="text"]').value,
 				document.querySelector("textarea").value,
@@ -430,6 +444,7 @@ export function screenController() {
 		isCompleteBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
 				let status = getToDoObject().toggleCompleteStatus(
+					currentRawDataArray,
 					btn.dataset.id,
 				);
 				if (status) {
@@ -710,26 +725,22 @@ export function screenController() {
 	const createProjectsOnReload = () => {
 		let projects = projectObject.getAllProjects();
 		let data = projectObject.getProjectsData();
+		let array;
+		let controller;
 		if (
 			Object.keys(projects).length === 0 &&
 			Object.keys(data).length !== 0
 		) {
 			for (let project in data) {
 				projectObject.addProject(project);
-				console.log("hey");
 			}
-
-			displayProject();
-		}
-	};
-
-	const createToDoOnReload = () => {
-		changeToDoController();
-		if (getToDoObject().getToDoArray().length === 0) {
-			getToDoObject()
-				.getDataArray()
-				.forEach((item) => {
-					getToDoObject().addTask(
+			for (let project in projectObject.getAllProjects()) {
+				controller = projectObject.getProject(project);
+				array = rawDataController.getRawDataArray(project);
+				console.log(project);
+				array.forEach((item) => {
+					controller.addTask(
+						project,
 						new task(
 							item.title,
 							item.description,
@@ -739,6 +750,30 @@ export function screenController() {
 						),
 					);
 				});
+			}
+
+			displayProject();
+		}
+	};
+
+	const createToDoOnReload = () => {
+		changeToDoController();
+		changeCurrentRawDataArray();
+
+		let array = rawDataController.getRawDataArray(currentRawDataArray);
+		if (getToDoObject().getToDoArray().length === 0 && array.length !== 0) {
+			array.forEach((item) => {
+				getToDoObject().addTask(
+					currentRawDataArray,
+					new task(
+						item.title,
+						item.description,
+						item.dueDate,
+						item.priority,
+						item.isCompleted,
+					),
+				);
+			});
 			displayToDo();
 		}
 	};

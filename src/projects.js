@@ -1,9 +1,14 @@
 import { taskController, task } from "./task.js";
 import { screenController } from "./ui.js";
-import { setLocalStorageItem, getLocalStorageItem } from "./localstorage.js";
+import {
+	setLocalStorageItem,
+	getLocalStorageItem,
+	projectsRawDataController,
+} from "./localstorage.js";
 
 export function projectController() {
 	let defaultProject = taskController();
+	let rawDataController = projectsRawDataController();
 
 	const getDefaultProject = () => defaultProject;
 	const projects = {};
@@ -32,6 +37,7 @@ export function projectController() {
 		}
 		getProjectsData()[name] = name;
 		setLocalStorageItem("projectsData", getProjectsData());
+		rawDataController.AddRawDataArray(name);
 	};
 
 	const getProject = (name) => {
@@ -39,6 +45,7 @@ export function projectController() {
 		for (const key in getAllProjects()) {
 			if (key === name) {
 				project = getAllProjects()[key];
+				let array = rawDataController.getRawDataArray(name);
 				return project;
 			}
 		}
@@ -50,7 +57,7 @@ export function projectController() {
 				delete getAllProjects()[name];
 				delete getProjectsData()[name];
 				setLocalStorageItem("projectsData", getProjectsData());
-				console.log(getAllProjects());
+				rawDataController.deleteArray(name);
 			}
 		}
 	};
