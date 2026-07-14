@@ -18,7 +18,13 @@ export function screenController() {
 	let editIndex = null;
 	let editObject = null;
 	const mainDiv = document.querySelector("main");
-	let toDo = projectObject.getDefaultProject();
+	let toDo;
+
+	const changeToDoController = (
+		controller = projectObject.getDefaultProject(),
+	) => {
+		toDo = controller;
+	};
 
 	homeBtn.addEventListener("click", () => {
 		defaultProjectInitializer();
@@ -30,8 +36,7 @@ export function screenController() {
 
 		projectBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
-				console.log(btn.dataset.id);
-				toDo = projectObject.getProject(btn.textContent);
+				changeToDoController(projectObject.getProject(btn.textContent));
 
 				displayToDo();
 			});
@@ -241,7 +246,7 @@ export function screenController() {
 	};
 
 	const defaultProjectInitializer = () => {
-		toDo = projectObject.getDefaultProject();
+		changeToDoController();
 		displayToDo();
 	};
 
@@ -719,6 +724,7 @@ export function screenController() {
 	};
 
 	const createToDoOnReload = () => {
+		changeToDoController();
 		if (getToDoObject().getToDoArray().length === 0) {
 			getToDoObject()
 				.getDataArray()
@@ -734,8 +740,6 @@ export function screenController() {
 					);
 				});
 			displayToDo();
-			return;
-		} else {
 		}
 	};
 	createProjectsOnReload();
