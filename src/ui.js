@@ -737,6 +737,7 @@ export function screenController() {
 			for (let project in projectObject.getAllProjects()) {
 				controller = projectObject.getProject(project);
 				array = rawDataController.getRawDataArray(project);
+
 				console.log(project);
 				array.forEach((item) => {
 					controller.addTask(

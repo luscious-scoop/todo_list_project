@@ -40,9 +40,9 @@ export function projectsRawDataController() {
 
 	const isDuplicate = (key, title) => {
 		let isDuplicate = false;
-
-		for (let i = 0; i < projectRawData[key].length; i++) {
-			if (projectRawData[key][i].title === title) {
+		let array = projectRawData[key];
+		for (let i = 0; i < array.length; i++) {
+			if (array[i].title === title) {
 				isDuplicate = true;
 				return isDuplicate;
 			}
@@ -66,8 +66,9 @@ export function projectsRawDataController() {
 	};
 
 	const toggleDataStatus = (key, index, status) => {
-		console.log(projectRawData[key][index].isCompleted);
-		projectRawData[key][index].isCompleted = status;
+		let array = projectRawData[key];
+		console.log(array);
+		array[index].isCompleted = status;
 		updateData();
 	};
 
