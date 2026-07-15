@@ -43,11 +43,7 @@ export function projectsRawDataController() {
 	};
 
 	const deleteArray = (key) => {
-		for (let project in projectsRawData) {
-			if (key === project) {
-				delete projectsRawData[project];
-			}
-		}
+		delete projectsRawData[key];
 
 		updateData();
 	};

@@ -52,14 +52,10 @@ export function projectController() {
 	};
 
 	const deleteProject = (name) => {
-		for (const key in getAllProjects()) {
-			if (key === name) {
-				delete getAllProjects()[name];
-				delete getProjectsData()[name];
-				setLocalStorageItem("projectsData", getProjectsData());
-				rawDataController.deleteArray(name);
-			}
-		}
+		delete getAllProjects()[name];
+		delete getProjectsData()[name];
+		setLocalStorageItem("projectsData", getProjectsData());
+		rawDataController.deleteArray(name);
 	};
 	return {
 		getProjectsData,
