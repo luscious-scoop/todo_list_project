@@ -32,8 +32,8 @@ function toDoController() {
 
 	const addTask = (key, object) => {
 		getToDoArray().push(object);
-		console.log(key);
-		rawDataController.addObject(key, object);
+
+		rawDataController.addRawData(key, getToDoArray());
 	};
 
 	const printToDoList = () => {
@@ -54,7 +54,7 @@ function toDoController() {
 		console.log("I am here");
 		if (index || index === 0) {
 			getToDoArray().splice(index, 1);
-			rawDataController.removeObject(key, index);
+			rawDataController.addRawData(key, getToDoArray());
 		} else {
 			console.log("not found");
 		}
@@ -79,8 +79,8 @@ function taskController() {
 
 		if (index || index === 0) {
 			obj.getToDoArray()[index].toggleStatus();
-			let status = obj.getToDoArray()[index].isCompleted;
-			rawDataController.toggleDataStatus(key, index, status);
+
+			rawDataController.addRawData(key, obj.getToDoArray());
 			return obj.getToDoArray()[index].isCompleted;
 		} else {
 			console.log("here");
@@ -109,12 +109,7 @@ function taskController() {
 					? priority
 					: obj.getToDoArray()[index].priority;
 
-			rawDataController.editObject(key, index, {
-				title: obj.getToDoArray()[index].title,
-				description: obj.getToDoArray()[index].description,
-				dueDate: obj.getToDoArray()[index].dueDate,
-				priority: obj.getToDoArray()[index].priority,
-			});
+			rawDataController.addRawData(key, obj.getToDoArray());
 
 			console.log(obj);
 		} else {

@@ -7,82 +7,55 @@ export function getLocalStorageItem(name) {
 }
 
 export function projectsRawDataController() {
-	let projectRawData = getLocalStorageItem("projectsRawObjectData") || {
+	let projectsRawData = getLocalStorageItem("projectsRawData") || {
 		df: [],
 	};
 
 	const updateData = () => {
-		setLocalStorageItem("projectsRawObjectData", projectRawData);
+		setLocalStorageItem("projectsRawData", projectsRawData);
 	};
 
-	const AddRawDataArray = (key) => {
-		projectRawData[key] = [];
-		updateData();
-	};
+	const addRawData = (key, array = null) => {
+		projectsRawData[key] = [];
 
-	const removeObject = (key, index) => {
-		projectRawData[key].splice(index, 1);
-		updateData();
-	};
-
-	const editObject = (key, index, object) => {
-		projectRawData[key][index].title = object.title;
-		projectRawData[key][index].description = object.description;
-		projectRawData[key][index].dueDate = object.dueDate;
-		projectRawData[key][index].priority = object.priority;
-		updateData();
-	};
-
-	const deleteArray = (key) => {
-		delete projectRawData[key];
-		updateData();
-	};
-
-	const isDuplicate = (key, title) => {
-		let isDuplicate = false;
-		let array = projectRawData[key];
-		for (let i = 0; i < array.length; i++) {
-			if (array[i].title === title) {
-				isDuplicate = true;
-				return isDuplicate;
-			}
-		}
-		return isDuplicate;
-	};
-
-	const addObject = (key, object) => {
-		if (isDuplicate(key, object.title)) {
+		if (!array) {
+			updateData();
 			return;
 		}
 
-		projectRawData[key].push({
-			title: object.title,
-			description: object.description,
-			dueDate: object.dueDate,
-			priority: object.priority,
-			isCompleted: object.isCompleted,
+		array.forEach((item) => {
+			projectsRawData[key].push({
+				title: item.title,
+				description: item.description,
+				dueDate: item.dueDate,
+				priority: item.priority,
+
+				isCompleted: item.isCompleted,
+			});
 		});
 		updateData();
 	};
 
-	const toggleDataStatus = (key, index, status) => {
-		let array = projectRawData[key];
-		console.log(array);
-		array[index].isCompleted = status;
-		updateData();
+	const getRawDataArray = (key) => {
+		console.log(`Key : ${key}`);
+		console.log(`m Here ${projectsRawData[key]}`);
+		return projectsRawData[key];
 	};
 
-	const getRawDataArray = (key) => {
-		return projectRawData[key];
+	const deleteArray = (key) => {
+		for (let project in projectsRawData) {
+			if (key === project) {
+				delete projectsRawData[project];
+			}
+		}
+
+		updateData();
 	};
 
 	return {
 		getRawDataArray,
-		toggleDataStatus,
-		addObject,
 		deleteArray,
-		editObject,
-		removeObject,
-		AddRawDataArray,
+
+		addRawData,
 	};
 }

@@ -17,10 +17,10 @@ export function screenController() {
 
 	const notesObject = notesController();
 
-	let currentRawDataArray;
+	let currentRawDataArrayKey;
 
 	const changeCurrentRawDataArray = (key = "df") => {
-		currentRawDataArray = key;
+		currentRawDataArrayKey = key;
 	};
 
 	changeCurrentRawDataArray();
@@ -183,7 +183,7 @@ export function screenController() {
 
 		if (title !== "" || description !== "" || dueDate !== "") {
 			getToDoObject().addTask(
-				currentRawDataArray,
+				currentRawDataArrayKey,
 				new task(title, description, dueDate, priority, false),
 			);
 		}
@@ -274,7 +274,7 @@ export function screenController() {
 	};
 
 	const deleteTask = (id) => {
-		getToDoObject().removeTask(currentRawDataArray, id);
+		getToDoObject().removeTask(currentRawDataArrayKey, id);
 		displayToDo();
 	};
 
@@ -425,7 +425,7 @@ export function screenController() {
 		conFirmEditBtn.addEventListener("click", (e) => {
 			e.preventDefault();
 			getToDoObject().editTask(
-				currentRawDataArray,
+				currentRawDataArrayKey,
 				editIndex,
 				document.querySelector('input[type="text"]').value,
 				document.querySelector("textarea").value,
@@ -444,7 +444,7 @@ export function screenController() {
 		isCompleteBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
 				let status = getToDoObject().toggleCompleteStatus(
-					currentRawDataArray,
+					currentRawDataArrayKey,
 					btn.dataset.id,
 				);
 				if (status) {
@@ -734,11 +734,15 @@ export function screenController() {
 			for (let project in data) {
 				projectObject.addProject(project);
 			}
-			for (let project in projectObject.getAllProjects()) {
+			for (let project in projects) {
 				controller = projectObject.getProject(project);
+
 				array = rawDataController.getRawDataArray(project);
 
+				if (!array) return;
+
 				console.log(project);
+				console.log(array);
 				array.forEach((item) => {
 					controller.addTask(
 						project,
@@ -761,11 +765,11 @@ export function screenController() {
 		changeToDoController();
 		changeCurrentRawDataArray();
 
-		let array = rawDataController.getRawDataArray(currentRawDataArray);
+		let array = rawDataController.getRawDataArray(currentRawDataArrayKey);
 		if (getToDoObject().getToDoArray().length === 0 && array.length !== 0) {
 			array.forEach((item) => {
 				getToDoObject().addTask(
-					currentRawDataArray,
+					currentRawDataArrayKey,
 					new task(
 						item.title,
 						item.description,

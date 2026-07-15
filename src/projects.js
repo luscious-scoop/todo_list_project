@@ -37,7 +37,7 @@ export function projectController() {
 		}
 		getProjectsData()[name] = name;
 		setLocalStorageItem("projectsData", getProjectsData());
-		rawDataController.AddRawDataArray(name);
+		rawDataController.addRawData(name);
 	};
 
 	const getProject = (name) => {
@@ -45,7 +45,7 @@ export function projectController() {
 		for (const key in getAllProjects()) {
 			if (key === name) {
 				project = getAllProjects()[key];
-				let array = rawDataController.getRawDataArray(name);
+
 				return project;
 			}
 		}
