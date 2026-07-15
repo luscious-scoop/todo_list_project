@@ -655,8 +655,11 @@ export function screenController() {
 			document.querySelector(".notes-title-input").value;
 		const notesDescriptionInput =
 			document.querySelector(".notes-desc-input").value;
-
-		notesObject.addTask(new notes(notesTitleInput, notesDescriptionInput));
+		changeCurrentRawDataArray("notes");
+		notesObject.addTask(
+			currentRawDataArrayKey,
+			new notes(notesTitleInput, notesDescriptionInput),
+		);
 	};
 
 	const createNotesEvent = () => {
@@ -681,8 +684,8 @@ export function screenController() {
 		notesDeleteDiv.classList.add("notes-del-div");
 
 		const notesDeleteBtn = document.createElement("button");
-		notesDeleteBtn.textContent = "X";
-		notesDeleteBtn.dataset.id = id;
+		notesDeleteBtn.textContent = "del";
+		notesDeleteBtn.dataset.id = `${id}`;
 		notesDeleteBtn.classList.add("notes-del-btn");
 
 		notesDeleteDiv.appendChild(notesDeleteBtn);
@@ -714,7 +717,8 @@ export function screenController() {
 
 		notesDeleteBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
-				notesObject.removeTask(btn.dataset.id);
+				changeCurrentRawDataArray("notes");
+				notesObject.removeTask(currentRawDataArrayKey, btn.dataset.id);
 				displayNotes();
 			});
 		});
@@ -782,6 +786,24 @@ export function screenController() {
 			displayToDo();
 		}
 	};
+
+	const createNotesOnReload = () => {
+		changeCurrentRawDataArray("notes");
+		console.log(currentRawDataArrayKey);
+
+		let array = rawDataController.getRawDataArray(currentRawDataArrayKey);
+
+		if (notesObject.getToDoArray().length === 0 && array.length !== 0) {
+			array.forEach((item) => {
+				notesObject.addTask(
+					currentRawDataArrayKey,
+					new notes(item.title, item.description),
+				);
+			});
+		}
+		deleteNote();
+	};
+	createNotesOnReload();
 	createProjectsOnReload();
 	createToDoOnReload();
 }

@@ -9,6 +9,7 @@ export function getLocalStorageItem(name) {
 export function projectsRawDataController() {
 	let projectsRawData = getLocalStorageItem("projectsRawData") || {
 		df: [],
+		notes: [],
 	};
 
 	const updateData = () => {
@@ -25,20 +26,13 @@ export function projectsRawDataController() {
 
 		array.forEach((item) => {
 			projectsRawData[key].push({
-				title: item.title,
-				description: item.description,
-				dueDate: item.dueDate,
-				priority: item.priority,
-
-				isCompleted: item.isCompleted,
+				...item,
 			});
 		});
 		updateData();
 	};
 
 	const getRawDataArray = (key) => {
-		console.log(`Key : ${key}`);
-		console.log(`m Here ${projectsRawData[key]}`);
 		return projectsRawData[key];
 	};
 

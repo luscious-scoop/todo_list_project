@@ -126,6 +126,7 @@ function taskController() {
 }
 
 function notesController() {
+	let obj = toDoController();
 	const editNote = (id, title = null, description = null) => {
 		let index = obj.findTask(id);
 
@@ -142,7 +143,7 @@ function notesController() {
 		}
 	};
 	return {
-		...toDoController(),
+		...obj,
 		editNote,
 	};
 }
