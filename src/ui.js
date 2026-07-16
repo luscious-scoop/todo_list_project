@@ -88,6 +88,8 @@ export function screenController() {
 		formFirstChild.appendChild(titleInput);
 		formFirstChild.appendChild(descriptionInput);
 
+		formFirstChild.classList.add("task-form-first-child");
+
 		const formSecondChild = document.createElement("div");
 
 		const dateDiv = document.createElement("div");
@@ -103,6 +105,7 @@ export function screenController() {
 		dateDiv.appendChild(dateInput);
 
 		formSecondChild.appendChild(dateDiv);
+		formSecondChild.classList.add("task-form-second-child");
 
 		const priorityDiv = document.createElement("div");
 		const priorityHeading = document.createElement("h2");
@@ -141,22 +144,26 @@ export function screenController() {
 		priorityDiv.appendChild(priorityHeading);
 		priorityDiv.appendChild(priorityButtonsDiv);
 
+		priorityDiv.classList.add("priority-div");
+
 		formSecondChild.appendChild(priorityDiv);
 
 		const formThirdChild = document.createElement("div");
 
 		const addToDoBtn = document.createElement("button");
-		addToDoBtn.textContent = "Add to Do";
+		addToDoBtn.textContent = "Add To Do";
 		addToDoBtn.classList.add("create-todo-btn");
 		addToDoBtn.style.display = addBtnDisplay;
 
 		const editToDoBtn = document.createElement("button");
 		editToDoBtn.classList.add("edit-todo-btn");
 		editToDoBtn.style.display = editBtnDisplay;
-		editToDoBtn.textContent = "Edit";
+		editToDoBtn.textContent = "Edit To Do";
 		formThirdChild.appendChild(editToDoBtn);
 
 		formThirdChild.appendChild(addToDoBtn);
+
+		formThirdChild.classList.add("task-form-third-child");
 
 		form.appendChild(formFirstChild);
 		form.appendChild(formSecondChild);
