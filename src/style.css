@@ -70,6 +70,8 @@ h6 {
 :root {
 	--low-priority-btn-clr: #069e2d;
 	--low-priority-btn-border: #036016;
+	--medium-priority-btn-clr: #ff9f1c;
+	--medium-priority-btn-border: #f58a07;
 }
 
 body {
@@ -281,7 +283,6 @@ main {
 }
 
 .task-form-second-child > div:nth-child(2) div {
-	border: 2px solid yellow;
 	display: flex;
 	gap: 8px;
 }
@@ -290,6 +291,7 @@ main {
 	padding: 10px 20px;
 	border-radius: 6px;
 	font-weight: bold;
+	transition: all 0.2s ease;
 }
 
 .low-priority-btn {
@@ -302,9 +304,24 @@ main {
 	color: white;
 }
 
-.selected.low-priority-btn {
-	color: white;
+.low-priority-btn.selected {
 	background-color: var(--low-priority-btn-clr);
+	color: white;
+}
+
+.medium-priority-btn {
+	border: 2px solid var(--medium-priority-btn-border);
+	color: var(--medium-priority-btn-clr);
+}
+
+.medium-priority-btn:hover {
+	background-color: var(--medium-priority-btn-clr);
+	color: white;
+}
+
+.selected.medium-priority-btn {
+	color: white;
+	background-color: var(--medium-priority-btn-clr);
 }
 
 .is-complete-btn {
