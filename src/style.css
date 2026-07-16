@@ -4,11 +4,11 @@
 *::before,
 *::after {
 	box-sizing: border-box;
+	padding: 0;
 }
 
 *:not(dialog) {
 	margin: 0;
-	padding: 0;
 }
 
 /* 3. Enable keyword animations */
@@ -212,64 +212,30 @@ main {
 	padding: 12px 18px;
 }
 
-/*  Form styles*/
+/*==========  Task Form Styles ==========*/
 
-form > div:first-child {
+/* ----- Dialog styles -----*/
+
+.main-dialog {
 	border: 2px solid red;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
 }
 
-form textarea,
-form input[type="text"] {
-	padding: 12px 16px;
-	font-size: 1.3rem;
-}
-
-dialog > div:first-child {
-	margin-bottom: 20px;
+.main-dialog > div {
+	border: 2px solid teal;
 	display: flex;
-	background-color: chartreuse;
-	color: black;
-	padding: 10px 18px;
+	padding: 10px 12px;
+	margin-bottom: 12px;
+	background-color: pink;
 	align-items: center;
 }
-
-dialog > div:first-child h2 {
+.main-dialog > div > h2 {
 	flex: 1;
 }
 
-dialog > div:first-child button {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-}
+.main-dialog > div > button {
+	border: none;
 
-form > div:nth-child(2) > div:first-child {
-	display: flex;
-	border: 2px solid yellow;
-	flex-direction: row;
-	padding: 20px 25px;
-	gap: 20px;
-}
-
-form > div:nth-child(2) > div {
-	display: flex;
-	align-items: center;
-	border: 2px solid blue;
-	gap: 10px;
-	padding: 12px;
-}
-
-form > div:nth-child(2) > div > div {
-	display: flex;
-	border: 2px solid palevioletred;
-	gap: 15px;
-}
-
-form > div:nth-child(2) > div > div button {
-	padding: 12px 18px;
+	background-color: transparent;
 }
 
 .low-priority-btn {
