@@ -75,6 +75,8 @@ h6 {
 
 	--high-priority-btn-clr: #e3170a;
 	--high-priority-btn-border: red;
+	--add-edit-btn-clr: #ffffff;
+	--add-edit-btn-text: #19647e;
 }
 
 body {
@@ -223,11 +225,11 @@ main {
 /* ----- Dialog styles -----*/
 
 .main-dialog {
-	border: 2px solid red;
+	/* border: 2px solid red; */
 }
 
 .main-dialog > div {
-	border: 2px solid teal;
+	/* border: 2px solid teal; */
 	display: flex;
 	padding: 10px 12px;
 	margin-bottom: 12px;
@@ -245,7 +247,7 @@ main {
 }
 
 .task-form {
-	border: 2px solid pink;
+	/* border: 2px solid pink; */
 	padding: 0px 5px;
 }
 
@@ -270,11 +272,11 @@ main {
 }
 
 .task-form-second-child {
-	border: 2px solid black;
+	/* border: 2px solid black; */
 }
 
 .task-form-second-child > div {
-	border: 2px solid red;
+	/* border: 2px solid red; */
 	display: flex;
 	align-items: center;
 	padding: 10px 5px;
@@ -340,6 +342,27 @@ main {
 .selected.high-priority-btn {
 	color: white;
 	background-color: var(--high-priority-btn-clr);
+}
+
+.task-form-third-child {
+	/* border: 2px solid red; */
+	display: flex;
+	padding: 10px 8px;
+	justify-content: flex-end;
+}
+
+.task-form-third-child button {
+	padding: 8px 18px;
+	background-color: var(--add-edit-btn-clr);
+	color: var(--add-edit-btn-text);
+	transition: all 0.2s ease;
+	border-radius: 6px;
+}
+
+.task-form-third-child button:hover {
+	padding: 8px 18px;
+	background-color: var(--add-edit-btn-text);
+	color: var(--add-edit-btn-clr);
 }
 
 .is-complete-btn {

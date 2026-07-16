@@ -80,8 +80,8 @@ export function screenController() {
 		titleInput.value = title;
 
 		const descriptionInput = document.createElement("textarea");
-		descriptionInput.rows = "8";
-		descriptionInput.cols = "60";
+		descriptionInput.rows = "5";
+		descriptionInput.cols = "50";
 		descriptionInput.style.resize = "none";
 		descriptionInput.placeholder =
 			"Details: e.g internet, phone , electricity.";
