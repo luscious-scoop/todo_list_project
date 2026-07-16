@@ -632,11 +632,15 @@ export function screenController() {
 		notesTitleInput.type = "text";
 		notesTitleInput.value = title;
 		notesTitleInput.classList.add("notes-title-input");
+		notesTitleInput.placeholder = "Note Title";
 
 		const notesDescriptionInput = document.createElement("textarea");
 		notesDescriptionInput.classList.add("notes-desc-input");
+		notesDescriptionInput.placeholder = "Note Description";
 
 		notesDescriptionInput.value = description;
+		notesDescriptionInput.rows = "10";
+		notesDescriptionInput.cols = "100";
 
 		const notesInputDiv = document.createElement("div");
 		notesInputDiv.classList.add("notes-input-div");

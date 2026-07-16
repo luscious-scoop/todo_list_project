@@ -234,7 +234,8 @@ main {
 	border-radius: 8px;
 }
 
-.main-dialog > div {
+.main-dialog > div,
+.notes-header {
 	/* border: 2px solid teal; */
 	display: flex;
 	padding: 10px 12px;
@@ -243,7 +244,8 @@ main {
 	color: white;
 	align-items: center;
 }
-.main-dialog > div > h2 {
+.main-dialog > div > h2,
+.dialog-header {
 	flex: 1;
 }
 
@@ -253,6 +255,9 @@ main {
 	background-color: transparent;
 }
 
+textarea {
+	resize: none;
+}
 .task-form {
 	/* border: 2px solid pink; */
 	padding: 0px 5px;
@@ -265,7 +270,9 @@ main {
 }
 
 .task-form input[type="text"],
-.task-form textarea {
+.task-form textarea,
+.notes-title-input,
+.notes-desc-input {
 	font-size: 1.5rem;
 	padding: 8px 10px;
 	border: none;
@@ -273,8 +280,6 @@ main {
 }
 
 .task-form textarea {
-	border: none;
-	padding: 8px 10px;
 	margin-bottom: 8px;
 }
 
@@ -351,14 +356,16 @@ main {
 	background-color: var(--high-priority-btn-clr);
 }
 
-.task-form-third-child {
+.task-form-third-child,
+.create-notes-div {
 	/* border: 2px solid red; */
 	display: flex;
 	padding: 10px 8px;
 	justify-content: flex-end;
 }
 
-.task-form-third-child button {
+.task-form-third-child button,
+.notes-add-btn {
 	padding: 8px 18px;
 	background-color: var(--add-edit-btn-clr);
 	color: var(--add-edit-btn-text);
@@ -366,7 +373,8 @@ main {
 	border-radius: 6px;
 }
 
-.task-form-third-child button:hover {
+.task-form-third-child button:hover,
+.notes-add-btn:hover {
 	padding: 8px 18px;
 	background-color: var(--add-edit-btn-text);
 	color: var(--add-edit-btn-clr);
