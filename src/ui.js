@@ -125,7 +125,7 @@ export function screenController() {
 
 		lowPriorityButton.classList.add("low-priority-btn");
 		mediumPriorityButton.classList.add("medium-priority-btn");
-		lowPriorityButton.classList.add("high-priority-btn");
+		highPriorityButton.classList.add("high-priority-btn");
 
 		if (priority === "High") {
 			highPriorityButton.classList.add("selected");

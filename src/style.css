@@ -72,6 +72,9 @@ h6 {
 	--low-priority-btn-border: #036016;
 	--medium-priority-btn-clr: #ff9f1c;
 	--medium-priority-btn-border: #f58a07;
+
+	--high-priority-btn-clr: #e3170a;
+	--high-priority-btn-border: red;
 }
 
 body {
@@ -304,7 +307,7 @@ main {
 	color: white;
 }
 
-.low-priority-btn.selected {
+.selected.low-priority-btn {
 	background-color: var(--low-priority-btn-clr);
 	color: white;
 }
@@ -322,6 +325,21 @@ main {
 .selected.medium-priority-btn {
 	color: white;
 	background-color: var(--medium-priority-btn-clr);
+}
+
+.high-priority-btn {
+	border: 2px solid var(--high-priority-btn-border);
+	color: var(--high-priority-btn-clr);
+}
+
+.high-priority-btn:hover {
+	background-color: var(--high-priority-btn-clr);
+	color: white;
+}
+
+.selected.high-priority-btn {
+	color: white;
+	background-color: var(--high-priority-btn-clr);
 }
 
 .is-complete-btn {
