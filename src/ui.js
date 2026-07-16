@@ -80,8 +80,8 @@ export function screenController() {
 		titleInput.value = title;
 
 		const descriptionInput = document.createElement("textarea");
-		descriptionInput.rows = "10";
-		descriptionInput.cols = "100";
+		descriptionInput.rows = "8";
+		descriptionInput.cols = "60";
 		descriptionInput.style.resize = "none";
 		descriptionInput.placeholder =
 			"Details: e.g internet, phone , electricity.";
@@ -142,6 +142,7 @@ export function screenController() {
 		priorityButtonsDiv.appendChild(lowPriorityButton);
 		priorityButtonsDiv.appendChild(mediumPriorityButton);
 		priorityButtonsDiv.appendChild(highPriorityButton);
+		priorityButtonsDiv;
 		priorityDiv.classList.add("priority-btns");
 
 		priorityDiv.appendChild(priorityHeading);

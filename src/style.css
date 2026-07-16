@@ -68,7 +68,8 @@ h6 {
 /* ========== CSS Reset End ==========*/
 
 :root {
-	--low-priority-btn-clr: #00a6a6;
+	--low-priority-btn-clr: #069e2d;
+	--low-priority-btn-border: #036016;
 }
 
 body {
@@ -238,12 +239,72 @@ main {
 	background-color: transparent;
 }
 
-.low-priority-btn {
-	background-color: var(--low-priority-btn-clr);
+.task-form {
+	border: 2px solid pink;
+	padding: 0px 5px;
 }
 
-.selected {
+.task-form input[type="text"] {
+	width: 100%;
+
+	margin-bottom: 8px;
+}
+
+.task-form input[type="text"],
+.task-form textarea {
+	font-size: 1.5rem;
+	padding: 8px 10px;
+	border: none;
+	outline: none;
+}
+
+.task-form textarea {
+	border: none;
+	padding: 8px 10px;
+	margin-bottom: 8px;
+}
+
+.task-form-second-child {
+	border: 2px solid black;
+}
+
+.task-form-second-child > div {
+	border: 2px solid red;
+	display: flex;
+	align-items: center;
+	padding: 10px 5px;
+	gap: 10px;
+}
+
+::backdrop {
+	background-color: rgba(0, 0, 0, 0.589);
+}
+
+.task-form-second-child > div:nth-child(2) div {
+	border: 2px solid yellow;
+	display: flex;
+	gap: 8px;
+}
+
+.task-form-second-child > div:nth-child(2) div button {
+	padding: 10px 20px;
+	border-radius: 6px;
+	font-weight: bold;
+}
+
+.low-priority-btn {
+	border: 2px solid var(--low-priority-btn-clr);
+	color: var(--low-priority-btn-clr);
+}
+
+.low-priority-btn:hover {
+	background-color: var(--low-priority-btn-clr);
 	color: white;
+}
+
+.selected.low-priority-btn {
+	color: white;
+	background-color: var(--low-priority-btn-clr);
 }
 
 .is-complete-btn {
