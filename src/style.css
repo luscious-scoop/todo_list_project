@@ -229,7 +229,8 @@ main {
 
 /* ----- Dialog styles -----*/
 
-.main-dialog {
+.main-dialog,
+.notes-dialog {
 	border: none;
 	border-radius: 8px;
 }
@@ -249,7 +250,8 @@ main {
 	flex: 1;
 }
 
-.main-dialog > div > button {
+.main-dialog > div > button,
+.notes-dialog-close-btn {
 	border: none;
 
 	background-color: transparent;
@@ -281,10 +283,6 @@ textarea {
 
 .task-form textarea {
 	margin-bottom: 8px;
-}
-
-.task-form-second-child {
-	/* border: 2px solid black; */
 }
 
 .task-form-second-child > div {

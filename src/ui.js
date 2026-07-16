@@ -2,6 +2,8 @@ import { projectController } from "./projects.js";
 import { taskController, task, notes, notesController } from "./task.js";
 import { projectsRawDataController } from "./localstorage.js";
 
+import closeBtnImg from "./icons/close.png";
+
 export function screenController() {
 	const homeBtn = document.querySelector(".home");
 	const notesSelectionBtn = document.querySelector(".notes-selection-btn");
@@ -592,8 +594,13 @@ export function screenController() {
 
 		const notesDialogCloseBtn = document.createElement("button");
 		notesDialogCloseBtn.type = "button";
-		notesDialogCloseBtn.textContent = "X";
+
 		notesDialogCloseBtn.classList.add("notes-dialog-close-btn");
+
+		const closeBtnImage = document.createElement("img");
+		closeBtnImage.src = `${closeBtnImg}`;
+
+		notesDialogCloseBtn.appendChild(closeBtnImage);
 
 		headerDiv.appendChild(dialogHeader);
 		headerDiv.appendChild(notesDialogCloseBtn);
