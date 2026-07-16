@@ -68,6 +68,7 @@ h6 {
 /* ========== CSS Reset End ==========*/
 
 :root {
+	--low-priority-btn-clr: #00a6a6;
 }
 
 body {
@@ -269,6 +270,10 @@ form > div:nth-child(2) > div > div {
 
 form > div:nth-child(2) > div > div button {
 	padding: 12px 18px;
+}
+
+.low-priority-btn {
+	background-color: var(--low-priority-btn-clr);
 }
 
 .selected {

@@ -67,6 +67,7 @@ export function screenController() {
 		editBtnDisplay = "none",
 	) => {
 		const form = document.createElement("form");
+		form.classList.add("task-form");
 
 		const formFirstChild = document.createElement("div");
 
@@ -115,6 +116,10 @@ export function screenController() {
 		lowPriorityButton.textContent = "Low";
 		mediumPriorityButton.textContent = "Medium";
 		highPriorityButton.textContent = "High";
+
+		lowPriorityButton.classList.add("low-priority-btn");
+		mediumPriorityButton.classList.add("medium-priority-btn");
+		lowPriorityButton.classList.add("high-priority-btn");
 
 		if (priority === "High") {
 			highPriorityButton.classList.add("selected");
