@@ -59,6 +59,7 @@ export function screenController() {
 	const getToDoObject = () => toDo;
 
 	const createTaskForm = (
+		heading = "Create a ToDo",
 		title = "",
 		description = "",
 		dueDate = "2026-07-03",
@@ -66,6 +67,8 @@ export function screenController() {
 		addBtnDisplay = "block",
 		editBtnDisplay = "none",
 	) => {
+		const dialogHeading = document.querySelector(".task-form-heading");
+		dialogHeading.textContent = heading;
 		const form = document.createElement("form");
 		form.classList.add("task-form");
 
@@ -413,6 +416,7 @@ export function screenController() {
 		editObject = getToDoObject().getToDoArray()[editIndex];
 
 		createTaskForm(
+			"Edit ToDo",
 			editObject.title,
 			editObject.description,
 			editObject.dueDate,
