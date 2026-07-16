@@ -77,6 +77,10 @@ h6 {
 	--high-priority-btn-border: red;
 	--add-edit-btn-clr: #ffffff;
 	--add-edit-btn-text: #19647e;
+
+	--header-bg-clr: #04395e;
+
+	--header-btn-clr: #eee5e5;
 }
 
 body {
@@ -99,7 +103,7 @@ header {
 	height: 80px;
 	padding: 0px 20px;
 
-	background-color: pink;
+	background-color: var(--header-bg-clr);
 }
 
 header h2 {
@@ -119,8 +123,9 @@ header .header-btns {
 }
 
 header button {
-	background-color: black;
-	color: white;
+	background-color: var(--header-btn-clr);
+	border: none;
+	color: black;
 	padding: 10px 14px;
 
 	font-size: 1.2rem;
@@ -225,7 +230,8 @@ main {
 /* ----- Dialog styles -----*/
 
 .main-dialog {
-	/* border: 2px solid red; */
+	border: none;
+	border-radius: 8px;
 }
 
 .main-dialog > div {
@@ -233,7 +239,8 @@ main {
 	display: flex;
 	padding: 10px 12px;
 	margin-bottom: 12px;
-	background-color: pink;
+	background-color: var(--header-bg-clr);
+	color: white;
 	align-items: center;
 }
 .main-dialog > div > h2 {
