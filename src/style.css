@@ -81,6 +81,8 @@ h6 {
 	--header-bg-clr: #04395e;
 
 	--header-btn-clr: #eee5e5;
+
+	--main-bg-clr: #dfdfdf;
 }
 
 body {
@@ -136,7 +138,7 @@ header button {
 
 .sidebar {
 	height: 100vh;
-	background-color: wheat;
+	background-color: var(--header-bg-clr);
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
@@ -187,6 +189,7 @@ main {
 	gap: 10px;
 	padding: 10px 20px;
 	border: 2px solid red;
+	background-color: var(--main-bg-clr);
 }
 
 .to-do {
