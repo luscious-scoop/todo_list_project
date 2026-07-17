@@ -230,13 +230,15 @@ main {
 /* ----- Dialog styles -----*/
 
 .main-dialog,
-.notes-dialog {
+.notes-dialog,
+.project-dialog {
 	border: none;
 	border-radius: 8px;
 }
 
 .main-dialog > div,
-.notes-header {
+.notes-header,
+.project-dialog-header-div {
 	/* border: 2px solid teal; */
 	display: flex;
 	padding: 10px 12px;
@@ -246,15 +248,21 @@ main {
 	align-items: center;
 }
 .main-dialog > div > h2,
-.dialog-header {
+.dialog-header,
+.project-dialog-header {
 	flex: 1;
 }
 
 .main-dialog > div > button,
-.notes-dialog-close-btn {
+.notes-dialog-close-btn,
+.project-close {
 	border: none;
 
 	background-color: transparent;
+}
+
+.project-dialog {
+	width: 500px;
 }
 
 textarea {
@@ -274,7 +282,8 @@ textarea {
 .task-form input[type="text"],
 .task-form textarea,
 .notes-title-input,
-.notes-desc-input {
+.notes-desc-input,
+.project-title-input {
 	font-size: 1.5rem;
 	padding: 8px 10px;
 	border: none;
@@ -355,15 +364,16 @@ textarea {
 }
 
 .task-form-third-child,
-.create-notes-div {
-	/* border: 2px solid red; */
+.create-notes-div,
+.add-project-div {
 	display: flex;
 	padding: 10px 8px;
 	justify-content: flex-end;
 }
 
 .task-form-third-child button,
-.notes-add-btn {
+.notes-add-btn,
+.add-project-btn {
 	padding: 8px 18px;
 	background-color: var(--add-edit-btn-clr);
 	color: var(--add-edit-btn-text);
@@ -372,8 +382,8 @@ textarea {
 }
 
 .task-form-third-child button:hover,
-.notes-add-btn:hover {
-	padding: 8px 18px;
+.notes-add-btn:hover,
+.add-project-btn:hover {
 	background-color: var(--add-edit-btn-text);
 	color: var(--add-edit-btn-clr);
 }

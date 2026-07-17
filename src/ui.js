@@ -479,11 +479,24 @@ export function screenController() {
 		const dialog = document.createElement("dialog");
 
 		dialog.classList.add("project-dialog");
+		const ProjectDialogHeaderDiv = document.createElement("div");
+		ProjectDialogHeaderDiv.classList.add("project-dialog-header-div");
+
+		const projectDialogHeader = document.createElement("h2");
+		projectDialogHeader.classList.add("project-dialog-header");
+		projectDialogHeader.textContent = "Create a new project";
+
+		ProjectDialogHeaderDiv.appendChild(projectDialogHeader);
 
 		const closeBtn = document.createElement("button");
 		closeBtn.classList.add("project-close");
-		closeBtn.textContent = "X";
-		dialog.appendChild(closeBtn);
+		const closeBtnImage = document.createElement("img");
+		closeBtnImage.src = `${closeBtnImg}`;
+
+		closeBtn.appendChild(closeBtnImage);
+
+		ProjectDialogHeaderDiv.appendChild(closeBtn);
+		dialog.appendChild(ProjectDialogHeaderDiv);
 
 		document.querySelector("body").appendChild(dialog);
 	};
@@ -492,17 +505,24 @@ export function screenController() {
 
 	const createProjectForm = () => {
 		const form = document.createElement("form");
+		const projectInputDiv = document.createElement("div");
+		projectInputDiv.classList.add("project-input-div");
 		form.classList.add("project-form");
 		const projectTitle = document.createElement("input");
 		projectTitle.classList.add("project-title-input");
 		projectTitle.type = "text";
+		projectTitle.placeholder = "Title: Build a new pc ";
+		projectInputDiv.appendChild(projectTitle);
 
 		const addProjectBtn = document.createElement("button");
 		addProjectBtn.classList.add("add-project-btn");
-		addProjectBtn.textContent = "Add Project";
+		addProjectBtn.textContent = "Create Project";
+		const addProjectDiv = document.createElement("div");
+		addProjectDiv.classList.add("add-project-div");
+		addProjectDiv.appendChild(addProjectBtn);
 
-		form.appendChild(projectTitle);
-		form.appendChild(addProjectBtn);
+		form.appendChild(projectInputDiv);
+		form.appendChild(addProjectDiv);
 		ProjectDialog.appendChild(form);
 		createProjectEvent();
 	};
