@@ -160,7 +160,8 @@ header button {
 	transition: all 0.2s ease;
 }
 
-.sidebar > div:first-child button:hover {
+.sidebar > div:first-child button:hover,
+.todo-project:hover {
 	background-color: var(--header-btn-clr);
 	color: black;
 }
@@ -170,7 +171,7 @@ header button {
 
 	justify-content: center;
 	align-items: center;
-	gap: 18px;
+	gap: 15px;
 	margin-bottom: 25px;
 }
 
@@ -208,6 +209,16 @@ header button {
 .project-card {
 	padding: 5px 20px;
 }
+
+.todo-project {
+	background-color: transparent;
+	color: white;
+	border: none;
+	padding: 10px 12px;
+	transition: all 0.2s ease;
+	font-size: 1.3rem;
+}
+
 /*========== Main content ==========*/
 
 main {
