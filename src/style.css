@@ -167,17 +167,31 @@ header button {
 
 .projects-section .header-section {
 	display: flex;
-	border: 2px solid red;
+
 	justify-content: center;
-	gap: 10px;
+	align-items: center;
+	gap: 18px;
+}
+
+.projects-section .header-section h2 {
+	color: white;
 }
 
 .projects-section .header-section button {
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	background-color: #1c6e8c;
 	border: none;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.2s ease;
 }
+.projects-section .header-section button:hover {
+	transform: scale(1.2);
+}
+
 .projects-section .project-card button:first-child {
 	flex: 1;
 }
