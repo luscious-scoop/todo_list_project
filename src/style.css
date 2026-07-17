@@ -171,6 +171,7 @@ header button {
 	justify-content: center;
 	align-items: center;
 	gap: 18px;
+	margin-bottom: 25px;
 }
 
 .projects-section .header-section h2 {
@@ -178,9 +179,10 @@ header button {
 }
 
 .projects-section .header-section button {
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
 	background-color: #1c6e8c;
+
 	border: none;
 	border-radius: 50%;
 	display: flex;
