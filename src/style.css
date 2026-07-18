@@ -179,7 +179,8 @@ header button {
 	color: white;
 }
 
-.projects-section .header-section button {
+.projects-section .header-section button,
+.project-del-btn {
 	width: 35px;
 	height: 35px;
 	background-color: #1c6e8c;
@@ -191,7 +192,8 @@ header button {
 	align-items: center;
 	transition: all 0.2s ease;
 }
-.projects-section .header-section button:hover {
+.projects-section .header-section button:hover,
+.project-del-btn:hover {
 	transform: scale(1.2);
 }
 
@@ -201,8 +203,9 @@ header button {
 
 .projects-section .project-card {
 	display: flex;
-	border: 2px solid red;
+
 	justify-content: center;
+	align-items: center;
 	gap: 10px;
 }
 

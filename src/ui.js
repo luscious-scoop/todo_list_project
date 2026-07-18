@@ -3,6 +3,7 @@ import { taskController, task, notes, notesController } from "./task.js";
 import { projectsRawDataController } from "./localstorage.js";
 
 import closeBtnImg from "./icons/close.png";
+import delBtnSrc from "./icons/minus-sign.png";
 
 export function screenController() {
 	const homeBtn = document.querySelector(".home");
@@ -562,7 +563,10 @@ export function screenController() {
 
 		const deleteBtn = document.createElement("button");
 		deleteBtn.classList.add("project-del-btn");
-		deleteBtn.textContent = "Del";
+
+		const delBtnImg = document.createElement("img");
+		delBtnImg.src = `${delBtnSrc}`;
+		deleteBtn.appendChild(delBtnImg);
 
 		deleteBtn.dataset.id = projectName;
 		projectDiv.appendChild(projectBtn);
