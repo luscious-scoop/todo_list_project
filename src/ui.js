@@ -4,6 +4,7 @@ import { projectsRawDataController } from "./localstorage.js";
 
 import closeBtnImg from "./icons/close.png";
 import delBtnSrc from "./icons/minus-sign.png";
+import checkImgSrc from "./icons/check.png";
 
 export function screenController() {
 	const homeBtn = document.querySelector(".home");
@@ -224,15 +225,23 @@ export function screenController() {
 		}
 	};
 
-	const ToDoToggleStyles = (status, div) => {
+	const ToDoToggleStyles = (status, div, btn) => {
+		const checkMarkImg = document.createElement("img");
+		checkMarkImg.src = `${checkImgSrc}`;
+		const isCompleteBtn = btn;
 		const todoDiv = div;
+
 		console.log(todoDiv);
 		if (status === true) {
 			todoDiv.classList.remove("not-completed-todo");
 			todoDiv.classList.add("todo-completed");
+			isCompleteBtn.appendChild(checkMarkImg);
+			isCompleteBtn.style.backgroundColor = "white";
 		} else {
 			todoDiv.classList.add("not-completed-todo");
 			todoDiv.classList.remove("todo-completed");
+			isCompleteBtn.textContent = "";
+			isCompleteBtn.style.backgroundColor = "transparent";
 		}
 	};
 
@@ -241,14 +250,15 @@ export function screenController() {
 		toDoDiv.classList.add("to-do");
 
 		toDoDiv.dataset.id = `${id}`;
-		ToDoToggleStyles(isComplete, toDoDiv);
 
 		const toDoDivFirstChild = document.createElement("div");
 
 		const isCompletedBtn = document.createElement("button");
-		isCompletedBtn.textContent = isComplete === true ? "D" : "";
+
 		isCompletedBtn.classList.add("is-complete-btn");
 		isCompletedBtn.dataset.id = `${id}`;
+
+		ToDoToggleStyles(isComplete, toDoDiv, isCompletedBtn);
 
 		const titleHeading = document.createElement("h2");
 		titleHeading.textContent = title;
@@ -498,15 +508,14 @@ export function screenController() {
 					currentRawDataArrayKey,
 					btn.dataset.id,
 				);
-				if (status) {
-					btn.textContent = "D";
-				} else {
-					btn.textContent = "";
-				}
+
 				ToDoToggleStyles(
 					status,
 					document.querySelector(
 						`.to-do[data-id="${btn.dataset.id}"]`,
+					),
+					document.querySelector(
+						`.is-complete-btn[data-id="${btn.dataset.id}"]`,
 					),
 				);
 			});

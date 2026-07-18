@@ -447,11 +447,8 @@ textarea {
 	color: var(--add-edit-btn-clr);
 }
 
-.is-complete-btn {
-	width: 40px;
-	height: 40px;
-	background-color: white;
-}
+/* */
+
 .notes-card {
 	background: pink;
 	border: 2px solid red;
