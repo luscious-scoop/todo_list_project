@@ -225,13 +225,22 @@ export function screenController() {
 		}
 	};
 
-	const ToDoToggleStyles = (status, div, btn) => {
+	const ToDoToggleStyles = (status, div, btn, priority = null) => {
 		const checkMarkImg = document.createElement("img");
 		checkMarkImg.src = `${checkImgSrc}`;
 		const isCompleteBtn = btn;
 		const todoDiv = div;
 
-		console.log(todoDiv);
+		if (priority === "Low") {
+			todoDiv.style.borderLeft = "5px solid #069e2d";
+		} else if (priority === "Medium") {
+			todoDiv.style.borderLeft = "5px solid #ff9f1c";
+		} else if (priority === "High") {
+			todoDiv.style.borderLeft = "5px solid #e3170a";
+		}
+		todoDiv.style.borderTopLeftRadius = "8px";
+		todoDiv.style.borderBottomLeftRadius = "8px";
+
 		if (status === true) {
 			todoDiv.classList.remove("not-completed-todo");
 			todoDiv.classList.add("todo-completed");
@@ -245,7 +254,7 @@ export function screenController() {
 		}
 	};
 
-	const createToDoHTML = (id, title, dueDate, isComplete) => {
+	const createToDoHTML = (id, title, dueDate, isComplete, priority) => {
 		const toDoDiv = document.createElement("div");
 		toDoDiv.classList.add("to-do");
 
@@ -258,7 +267,7 @@ export function screenController() {
 		isCompletedBtn.classList.add("is-complete-btn");
 		isCompletedBtn.dataset.id = `${id}`;
 
-		ToDoToggleStyles(isComplete, toDoDiv, isCompletedBtn);
+		ToDoToggleStyles(isComplete, toDoDiv, isCompletedBtn, priority);
 
 		const titleHeading = document.createElement("h2");
 		titleHeading.textContent = title;
@@ -307,6 +316,7 @@ export function screenController() {
 					task.title,
 					task.dueDate,
 					task.isCompleted,
+					task.priority,
 				);
 			});
 
