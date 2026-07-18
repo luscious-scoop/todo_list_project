@@ -83,6 +83,7 @@ h6 {
 	--header-btn-clr: #eee5e5;
 
 	--main-bg-clr: #dfdfdf;
+	--todo-main-bg: #4d5061;
 }
 
 body {
@@ -241,7 +242,7 @@ main {
 
 .to-do {
 	display: flex;
-	background-color: palegreen;
+	background-color: var(--todo-main-bg);
 	padding: 10px 20px;
 }
 
