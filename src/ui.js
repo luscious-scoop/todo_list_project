@@ -44,6 +44,22 @@ export function screenController() {
 		defaultProjectInitializer();
 	});
 
+	const tabSwitchBtnsStyles = (btn = null) => {
+		if (btn) {
+			document.querySelector(`[data-id=${btn}]`).classList.add("active");
+		}
+
+		const tabSwitchBtns = document.querySelectorAll(".tab-switch-btn");
+
+		tabSwitchBtns.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				document.querySelector(".active")?.classList.remove("active");
+
+				btn.classList.add("active");
+			});
+		});
+	};
+
 	const getProjectEvent = () => {
 		let project;
 		const projectBtns = document.querySelectorAll(".todo-project");
@@ -559,6 +575,7 @@ export function screenController() {
 
 		const projectBtn = document.createElement("button");
 		projectBtn.classList.add("todo-project");
+		projectBtn.classList.add("tab-switch-btn");
 		projectBtn.textContent = projectName;
 
 		const deleteBtn = document.createElement("button");
@@ -583,6 +600,7 @@ export function screenController() {
 		}
 		deleteProjectEvent();
 		getProjectEvent();
+		tabSwitchBtnsStyles();
 	};
 	const createProjectEvent = () => {
 		const addBtn = document.querySelector(".add-project-btn");
@@ -600,6 +618,8 @@ export function screenController() {
 		deleteBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
 				projectObject.deleteProject(btn.dataset.id);
+				tabSwitchBtnsStyles("home");
+
 				displayProject();
 				defaultProjectInitializer();
 			});
@@ -794,6 +814,7 @@ export function screenController() {
 				controller = projectObject.getProject(project);
 
 				array = rawDataController.getRawDataArray(project);
+				displayProject();
 
 				if (!array) return;
 
@@ -857,5 +878,7 @@ export function screenController() {
 	};
 	createNotesOnReload();
 	createProjectsOnReload();
+
 	createToDoOnReload();
+	tabSwitchBtnsStyles();
 }

@@ -150,7 +150,8 @@ header button {
 	flex-direction: column;
 	gap: 10px;
 }
-.sidebar > div:first-child button {
+.home,
+.notes-selection-btn {
 	padding: 8px 16px;
 	background-color: transparent;
 	color: white;
@@ -220,6 +221,11 @@ header button {
 	padding: 10px 12px;
 	transition: all 0.2s ease;
 	font-size: 1.3rem;
+}
+
+.active {
+	background-color: var(--add-edit-btn-clr);
+	color: black;
 }
 
 /*========== Main content ==========*/
