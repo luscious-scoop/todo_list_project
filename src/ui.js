@@ -224,9 +224,24 @@ export function screenController() {
 		}
 	};
 
+	const ToDoToggleStyles = (status, div) => {
+		const todoDiv = div;
+		console.log(todoDiv);
+		if (status === true) {
+			todoDiv.classList.remove("not-completed-todo");
+			todoDiv.classList.add("todo-completed");
+		} else {
+			todoDiv.classList.add("not-completed-todo");
+			todoDiv.classList.remove("todo-completed");
+		}
+	};
+
 	const createToDoHTML = (id, title, dueDate, isComplete) => {
 		const toDoDiv = document.createElement("div");
 		toDoDiv.classList.add("to-do");
+
+		toDoDiv.dataset.id = `${id}`;
+		ToDoToggleStyles(isComplete, toDoDiv);
 
 		const toDoDivFirstChild = document.createElement("div");
 
@@ -488,6 +503,12 @@ export function screenController() {
 				} else {
 					btn.textContent = "";
 				}
+				ToDoToggleStyles(
+					status,
+					document.querySelector(
+						`.to-do[data-id="${btn.dataset.id}"]`,
+					),
+				);
 			});
 		});
 	};

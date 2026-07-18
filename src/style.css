@@ -84,6 +84,8 @@ h6 {
 
 	--main-bg-clr: #dfdfdf;
 	--todo-main-bg: #4d5061;
+
+	--todo-completed-bg: #6cc551;
 }
 
 body {
@@ -240,10 +242,14 @@ main {
 	background-color: var(--main-bg-clr);
 }
 
+.not-completed-todo {
+	background-color: var(--todo-main-bg);
+}
 .to-do {
 	display: flex;
-	background-color: var(--todo-main-bg);
+
 	padding: 10px 20px;
+	color: white;
 }
 
 .to-do div:first-child {
@@ -275,7 +281,9 @@ main {
 .to-do div:nth-child(2) button {
 	padding: 12px 18px;
 }
-
+.todo-completed {
+	background-color: var(--todo-completed-bg);
+}
 /*==========  Task Form Styles ==========*/
 
 /* ----- Dialog styles -----*/
