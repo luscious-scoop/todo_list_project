@@ -370,23 +370,24 @@ export function screenController() {
 		const closeBtn = document.createElement("button");
 		closeBtn.classList.add("desc-close");
 		closeBtn.dataset.id = `${object.id}`;
-		closeBtn.textContent = "X";
+
+		const closeBtnImage = document.createElement("img");
+		closeBtnImage.src = `${closeBtnImg}`;
+		closeBtn.appendChild(closeBtnImage);
 		closeBtnDiv.appendChild(closeBtn);
 		descriptionDialog.appendChild(closeBtnDiv);
 
 		const titleDiv = document.createElement("div");
 
-		const titleHeading = document.createElement("p");
-		titleHeading.textContent = "Title: ";
-		const titleValue = document.createElement("p");
+		const titleValue = document.createElement("h2");
 		titleValue.textContent = `${object.title}`;
+		titleDiv.classList.add("desc-title-div");
 
-		titleDiv.appendChild(titleHeading);
 		titleDiv.appendChild(titleValue);
 
 		const descriptionDiv = document.createElement("div");
 
-		const descriptionHeading = document.createElement("p");
+		const descriptionHeading = document.createElement("h2");
 		descriptionHeading.textContent = "Description: ";
 		const descriptionValue = document.createElement("p");
 		descriptionValue.textContent = `${object.description}`;
@@ -396,7 +397,7 @@ export function screenController() {
 
 		const dateDiv = document.createElement("div");
 
-		const dateHeading = document.createElement("p");
+		const dateHeading = document.createElement("h2");
 		dateHeading.textContent = "DueDate: ";
 
 		const dateValue = document.createElement("p");
@@ -407,7 +408,7 @@ export function screenController() {
 
 		const priorityDiv = document.createElement("div");
 
-		const priorityHeading = document.createElement("p");
+		const priorityHeading = document.createElement("h2");
 		priorityHeading.textContent = "Priority: ";
 		const priorityValue = document.createElement("p");
 		priorityValue.textContent = `${object.priority}`;

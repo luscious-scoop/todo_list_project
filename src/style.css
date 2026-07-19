@@ -86,6 +86,11 @@ h6 {
 	--todo-main-bg: #4d5061;
 
 	--todo-completed-bg: #6cc551;
+
+	--desc-header-bg: #7d8491;
+
+	--desc-bg-clr: #eadeda;
+	--desc-text-clr: #650d1b;
 }
 
 body {
@@ -322,6 +327,45 @@ main {
 
 .project-dialog {
 	width: 500px;
+}
+
+.description-dialog {
+	width: 500px;
+	border: none;
+	border-radius: 8px;
+
+	background-color: var(--desc-bg-clr);
+	color: var(--desc-text-clr);
+}
+
+.description-dialog > div:first-child {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 8px 10px;
+	background-color: var(--desc-header-bg);
+}
+
+.description-dialog > div:first-child button {
+	background-color: transparent;
+	border: none;
+}
+
+.desc-title-div {
+	padding: 12px 22px;
+	font-size: 2rem;
+}
+
+.desc-title-div ~ * {
+	display: flex;
+	gap: 8px;
+	padding: 10px;
+
+	align-items: center;
+}
+
+.desc-title-div ~ * p {
+	font-size: 1.3rem;
 }
 
 textarea {
