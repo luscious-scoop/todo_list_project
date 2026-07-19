@@ -507,8 +507,7 @@ textarea {
 .notes-card {
 	background-color: var(--notes-bg-clr);
 	color: white;
-	display: flex;
-	flex-direction: column;
+
 	height: 250px;
 
 	border-radius: 6px;
@@ -524,4 +523,5 @@ textarea {
 .notes-card > h2,
 .notes-card p {
 	padding: 0px 10px;
+	width: 100%;
 }
