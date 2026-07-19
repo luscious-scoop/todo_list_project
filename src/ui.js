@@ -251,12 +251,14 @@ export function screenController() {
 			isCompleteBtn.appendChild(checkMarkImg);
 			isCompleteBtn.style.backgroundColor = "white";
 			header.style.textDecoration = "line-through";
+			header.style.color = "black";
 		} else {
 			todoDiv.classList.add("not-completed-todo");
 			todoDiv.classList.remove("todo-completed");
 			isCompleteBtn.textContent = "";
 			isCompleteBtn.style.backgroundColor = "transparent";
 			header.style.textDecoration = "none";
+			header.style.color = "white";
 		}
 	};
 
