@@ -91,6 +91,8 @@ h6 {
 
 	--desc-bg-clr: #eadeda;
 	--desc-text-clr: #650d1b;
+
+	--notes-bg-clr: #252422;
 }
 
 body {
@@ -239,9 +241,6 @@ header button {
 /*========== Main content ==========*/
 
 main {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
 	padding: 10px 20px;
 
 	background-color: var(--main-bg-clr);
@@ -252,6 +251,7 @@ main {
 }
 .to-do {
 	display: flex;
+	margin-bottom: 15px;
 
 	padding: 10px 20px;
 	color: white;
@@ -319,7 +319,8 @@ main {
 
 .main-dialog > div > button,
 .notes-dialog-close-btn,
-.project-close {
+.project-close,
+.notes-del-div button {
 	border: none;
 
 	background-color: transparent;
@@ -338,11 +339,14 @@ main {
 	color: var(--desc-text-clr);
 }
 
-.description-dialog > div:first-child {
+.description-dialog > div:first-child,
+.notes-del-div {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
 	padding: 8px 10px;
+}
+.description-dialog > div:first-child {
 	background-color: var(--desc-header-bg);
 }
 
@@ -493,8 +497,31 @@ textarea {
 
 /* */
 
+.notes-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+	gap: 10px;
+}
+
 .notes-card {
-	background: pink;
-	border: 2px solid red;
-	color: red;
+	background-color: var(--notes-bg-clr);
+	color: white;
+	display: flex;
+	flex-direction: column;
+	height: 250px;
+
+	border-radius: 6px;
+}
+
+.notes-card h2 {
+	margin-bottom: 8px;
+	font-size: 1.5rem;
+}
+.notes-card p {
+	font-size: 1.3rem;
+}
+.notes-card > h2,
+.notes-card p {
+	padding: 0px 10px;
 }

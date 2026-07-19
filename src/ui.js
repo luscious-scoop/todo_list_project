@@ -7,6 +7,9 @@ import delBtnSrc from "./icons/minus-sign.png";
 import checkImgSrc from "./icons/check.png";
 
 export function screenController() {
+	const todoContainer = document.querySelector(".todo-container");
+	const notesContainer = document.querySelector(".notes-container");
+
 	const homeBtn = document.querySelector(".home");
 	const notesSelectionBtn = document.querySelector(".notes-selection-btn");
 	const notesShowFormBtn = document.querySelector(".notes-show-form-btn");
@@ -47,7 +50,8 @@ export function screenController() {
 
 	const tabSwitchBtnsStyles = (btn = null) => {
 		if (btn) {
-			document.querySelector(`[data-id=${btn}]`).classList.add("active");
+			document.querySelector(".active").classList.remove("active");
+			btn.classList.add("active");
 		}
 
 		const tabSwitchBtns = document.querySelectorAll(".tab-switch-btn");
@@ -302,11 +306,12 @@ export function screenController() {
 		toDoDiv.appendChild(toDoDivFirstChild);
 		toDoDiv.appendChild(toDoDivSecondChild);
 
-		mainDiv.appendChild(toDoDiv);
+		todoContainer.appendChild(toDoDiv);
 	};
 
 	const displayToDo = () => {
-		mainDiv.textContent = "";
+		todoContainer.textContent = "";
+		notesContainer.textContent = "";
 
 		getToDoObject()
 			.getToDoArray()
@@ -659,7 +664,7 @@ export function screenController() {
 		deleteBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
 				projectObject.deleteProject(btn.dataset.id);
-				tabSwitchBtnsStyles("home");
+				tabSwitchBtnsStyles(homeBtn);
 
 				displayProject();
 				defaultProjectInitializer();
@@ -783,40 +788,49 @@ export function screenController() {
 		createNoteBtn.addEventListener("click", (e) => {
 			e.preventDefault();
 			createNote();
+
+			displayNotes();
+			tabSwitchBtnsStyles(notesSelectionBtn);
 			notesDialog.close();
 			removeNotesForm();
 		});
 	};
-	const notesDiv = document.querySelector(".notes-container");
+
 	const createNotesHTML = (id, notesTitle, notesDescription) => {
 		const notesCard = document.createElement("div");
 		notesCard.classList.add("notes-card");
+
 		const noteTitle = document.createElement("h2");
 
 		const notesDeleteDiv = document.createElement("div");
 		notesDeleteDiv.classList.add("notes-del-div");
 
 		const notesDeleteBtn = document.createElement("button");
-		notesDeleteBtn.textContent = "del";
+
 		notesDeleteBtn.dataset.id = `${id}`;
 		notesDeleteBtn.classList.add("notes-del-btn");
+		const delBtnImage = document.createElement("img");
+		delBtnImage.src = `${closeBtnImg}`;
+		notesDeleteBtn.appendChild(delBtnImage);
 
 		notesDeleteDiv.appendChild(notesDeleteBtn);
 
 		noteTitle.textContent = notesTitle;
 
-		const noteDescription = document.createElement("h2");
+		const noteDescription = document.createElement("p");
 
 		noteDescription.textContent = notesDescription;
+		notesCard.appendChild(notesDeleteDiv);
 
 		notesCard.appendChild(noteTitle);
 		notesCard.appendChild(noteDescription);
-		notesCard.appendChild(notesDeleteDiv);
-		mainDiv.appendChild(notesCard);
+
+		notesContainer.appendChild(notesCard);
 	};
 
 	const displayNotes = () => {
-		mainDiv.textContent = "";
+		todoContainer.textContent = "";
+		notesContainer.textContent = "";
 
 		notesObject.getToDoArray().forEach((note) => {
 			createNotesHTML(note.id, note.title, note.description);
