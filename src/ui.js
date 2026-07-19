@@ -229,7 +229,7 @@ export function screenController() {
 		}
 	};
 
-	const ToDoToggleStyles = (status, div, btn, priority = null) => {
+	const ToDoToggleStyles = (status, div, btn, priority = null, header) => {
 		const checkMarkImg = document.createElement("img");
 		checkMarkImg.src = `${checkImgSrc}`;
 		const isCompleteBtn = btn;
@@ -250,11 +250,13 @@ export function screenController() {
 			todoDiv.classList.add("todo-completed");
 			isCompleteBtn.appendChild(checkMarkImg);
 			isCompleteBtn.style.backgroundColor = "white";
+			header.style.textDecoration = "line-through";
 		} else {
 			todoDiv.classList.add("not-completed-todo");
 			todoDiv.classList.remove("todo-completed");
 			isCompleteBtn.textContent = "";
 			isCompleteBtn.style.backgroundColor = "transparent";
+			header.style.textDecoration = "none";
 		}
 	};
 
@@ -271,14 +273,20 @@ export function screenController() {
 		isCompletedBtn.classList.add("is-complete-btn");
 		isCompletedBtn.dataset.id = `${id}`;
 
-		ToDoToggleStyles(isComplete, toDoDiv, isCompletedBtn, priority);
-
 		const titleHeading = document.createElement("h2");
 		titleHeading.textContent = title;
+		titleHeading.classList.add("todo-title");
+		titleHeading.dataset.id = `${id}`;
 
 		toDoDivFirstChild.appendChild(isCompletedBtn);
 		toDoDivFirstChild.appendChild(titleHeading);
-
+		ToDoToggleStyles(
+			isComplete,
+			toDoDiv,
+			isCompletedBtn,
+			priority,
+			titleHeading,
+		);
 		const toDoDivSecondChild = document.createElement("div");
 
 		const date = document.createElement("div");
@@ -532,6 +540,10 @@ export function screenController() {
 					),
 					document.querySelector(
 						`.is-complete-btn[data-id="${btn.dataset.id}"]`,
+					),
+					null,
+					document.querySelector(
+						`.todo-title[data-id="${btn.dataset.id}"]`,
 					),
 				);
 			});
