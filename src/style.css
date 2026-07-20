@@ -260,6 +260,14 @@ main {
 
 	padding: 10px 20px;
 	color: white;
+	transition: all 0.2s ease-out;
+	cursor: pointer;
+}
+
+.to-do:hover,
+.notes-card:hover {
+	box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
+	transform: scale(1.003);
 }
 
 .to-do div:first-child {
@@ -518,6 +526,7 @@ textarea {
 	height: 250px;
 
 	border-radius: 6px;
+	transition: all 0.3s ease;
 }
 
 .notes-card h2 {
