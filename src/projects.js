@@ -19,7 +19,7 @@ export function projectController() {
 	const checkProjectDuplicates = (data) => {
 		let isDuplicate = false;
 
-		let projects = getProjectsData();
+		let projects = getAllProjects();
 
 		for (let key in projects) {
 			if (key === data) {
@@ -31,10 +31,12 @@ export function projectController() {
 	};
 
 	const addProject = (name) => {
-		getAllProjects()[name] = taskController();
 		if (checkProjectDuplicates(name)) {
+			alert("This Project Exists");
 			return;
 		}
+		getAllProjects()[name] = taskController();
+
 		getProjectsData()[name] = name;
 		setLocalStorageItem("projectsData", getProjectsData());
 		rawDataController.addRawData(name);
