@@ -43,6 +43,8 @@ export function screenController() {
 		controller = projectObject.getDefaultProject(),
 	) => {
 		toDo = controller;
+
+		console.log(toDo.getToDoArray());
 	};
 
 	changeToDoController();
@@ -52,15 +54,16 @@ export function screenController() {
 
 	const tabSwitchBtnsStyles = (btn = null) => {
 		if (btn) {
-			document.querySelector(".active").classList.remove("active");
+			document.querySelector(".active")?.classList.remove("active");
 			btn.classList.add("active");
+			return;
 		}
 
 		const tabSwitchBtns = document.querySelectorAll(".tab-switch-btn");
 
 		tabSwitchBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
-				document.querySelector(".active")?.classList.remove("active");
+				document.querySelector(".active").classList.remove("active");
 
 				btn.classList.add("active");
 			});
@@ -191,7 +194,7 @@ export function screenController() {
 		editToDoBtn.textContent = "Edit To Do";
 		formThirdChild.appendChild(editToDoBtn);
 
-		formThirdChild.appendChild(addToDoBtn);
+		formThirdChild.appendChild(createToDoBtn);
 
 		formThirdChild.classList.add("task-form-third-child");
 
@@ -660,15 +663,31 @@ export function screenController() {
 		projectsDiv.appendChild(projectDiv);
 	};
 
+	const getLastProject = () => {
+		let projects = projectObject.getAllProjects();
+
+		let projectKeys = Object.keys(projects);
+		let lastProject = projectKeys[projectKeys.length - 1];
+
+		changeToDoController(projectObject.getProject(lastProject));
+		changeCurrentRawDataArray(lastProject);
+		let lastChild = document.querySelector(
+			".projects > div:last-child > button:first-child",
+		);
+		console.log(lastChild);
+		tabSwitchBtnsStyles(lastChild);
+		displayToDo();
+	};
+
 	const displayProject = () => {
 		projectsDiv.textContent = "";
 		let projects = projectObject.getAllProjects();
 		for (let project in projects) {
 			createProjectSidebar(project);
 		}
+		tabSwitchBtnsStyles();
 		deleteProjectEvent();
 		getProjectEvent();
-		tabSwitchBtnsStyles();
 	};
 	const createProjectEvent = () => {
 		const addBtn = document.querySelector(".add-project-btn");
@@ -676,6 +695,7 @@ export function screenController() {
 		addBtn.addEventListener("click", (e) => {
 			e.preventDefault();
 			createProject();
+			getLastProject();
 
 			ProjectDialog.close();
 			ProjectDialog.removeChild(document.querySelector(".project-form"));

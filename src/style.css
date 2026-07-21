@@ -541,3 +541,7 @@ textarea {
 	padding: 0px 10px;
 	width: 100%;
 }
+
+.todo-project:last-child {
+	border: 2px solid red !important;
+}
