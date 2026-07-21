@@ -14,12 +14,14 @@ export function screenController() {
 	const notesSelectionBtn = document.querySelector(".notes-selection-btn");
 	const notesShowFormBtn = document.querySelector(".notes-show-form-btn");
 
-	const dialog = document.querySelector(".main-dialog");
+	const mainDialog = document.querySelector(".main-dialog");
 
-	const closeBtn = document.querySelector(".close-btn");
-	const addBtn = document.querySelector(".add-btn");
+	const mainDialogCloseBtn = document.querySelector(".main-dialog-close-btn");
+	const ShowToDoFormBtn = document.querySelector(".show-todo-form-btn");
 	const projectsDiv = document.querySelector(".projects");
+
 	let projectObject = projectController();
+
 	let rawDataController = projectsRawDataController();
 
 	const notesObject = notesController();
@@ -82,7 +84,7 @@ export function screenController() {
 
 	const getToDoObject = () => toDo;
 
-	const createTaskForm = (
+	const createToDoForm = (
 		heading = "Create a ToDo",
 		title = "",
 		description = "",
@@ -93,8 +95,8 @@ export function screenController() {
 	) => {
 		const dialogHeading = document.querySelector(".task-form-heading");
 		dialogHeading.textContent = heading;
-		const form = document.createElement("form");
-		form.classList.add("task-form");
+		const taskForm = document.createElement("form");
+		taskForm.classList.add("task-form");
 
 		const formFirstChild = document.createElement("div");
 
@@ -178,10 +180,10 @@ export function screenController() {
 
 		const formThirdChild = document.createElement("div");
 
-		const addToDoBtn = document.createElement("button");
-		addToDoBtn.textContent = "Add To Do";
-		addToDoBtn.classList.add("create-todo-btn");
-		addToDoBtn.style.display = addBtnDisplay;
+		const createToDoBtn = document.createElement("button");
+		createToDoBtn.textContent = "Add To Do";
+		createToDoBtn.classList.add("create-todo-btn");
+		createToDoBtn.style.display = addBtnDisplay;
 
 		const editToDoBtn = document.createElement("button");
 		editToDoBtn.classList.add("edit-todo-btn");
@@ -193,27 +195,27 @@ export function screenController() {
 
 		formThirdChild.classList.add("task-form-third-child");
 
-		form.appendChild(formFirstChild);
-		form.appendChild(formSecondChild);
-		form.appendChild(formThirdChild);
-		dialog.appendChild(form);
+		taskForm.appendChild(formFirstChild);
+		taskForm.appendChild(formSecondChild);
+		taskForm.appendChild(formThirdChild);
+		mainDialog.appendChild(taskForm);
 
 		changePriorityEvent();
 	};
 
-	const showForm = () => {
-		dialog.showModal();
+	const showToDoForm = () => {
+		mainDialog.showModal();
 	};
-	const closeForm = () => {
-		dialog.close();
-		dialog.removeChild(document.querySelector("form"));
+	const closeToDoForm = () => {
+		mainDialog.close();
+		mainDialog.removeChild(document.querySelector(".task-form"));
 	};
-	addBtn.addEventListener("click", () => {
-		createTaskForm();
-		showForm();
+	ShowToDoFormBtn.addEventListener("click", () => {
+		createToDoForm();
+		showToDoForm();
 		createToDoEvent();
 	});
-	closeBtn.addEventListener("click", closeForm);
+	mainDialogCloseBtn.addEventListener("click", closeToDoForm);
 
 	const createToDo = () => {
 		const title = document.querySelector('input[type="text"]').value;
@@ -262,7 +264,13 @@ export function screenController() {
 		}
 	};
 
-	const createToDoHTML = (id, title, dueDate, isComplete, priority) => {
+	const createToDoHTML = (
+		id,
+		title,
+		dueDate,
+		toggleIsCompleteToDoEvent,
+		priority,
+	) => {
 		const toDoDiv = document.createElement("div");
 		toDoDiv.classList.add("to-do");
 
@@ -283,7 +291,7 @@ export function screenController() {
 		toDoDivFirstChild.appendChild(isCompletedBtn);
 		toDoDivFirstChild.appendChild(titleHeading);
 		ToDoToggleStyles(
-			isComplete,
+			toggleIsCompleteToDoEvent,
 			toDoDiv,
 			isCompletedBtn,
 			priority,
@@ -335,10 +343,10 @@ export function screenController() {
 				);
 			});
 
-		deleteTaskEvent();
-		showDescriptionEvent();
-		editShowEvent();
-		isComplete();
+		deleteToDoEvent();
+		showToDoDescriptionEvent();
+		editToDoEvent();
+		toggleIsCompleteToDoEvent();
 	};
 
 	const defaultProjectInitializer = () => {
@@ -353,22 +361,22 @@ export function screenController() {
 			e.preventDefault();
 			createToDo();
 			displayToDo();
-			dialog.close();
-			dialog.removeChild(document.querySelector("form"));
+			mainDialog.close();
+			mainDialog.removeChild(document.querySelector(".task-form"));
 		});
 	};
 
-	const deleteTask = (id) => {
+	const deleteToDo = (id) => {
 		getToDoObject().removeTask(currentRawDataArrayKey, id);
 		displayToDo();
 	};
 
-	const deleteTaskEvent = () => {
+	const deleteToDoEvent = () => {
 		const deleteBtns = document.querySelectorAll(".delete-btn");
 
 		deleteBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
-				deleteTask(btn.dataset.id);
+				deleteToDo(btn.dataset.id);
 			});
 		});
 	};
@@ -438,7 +446,7 @@ export function screenController() {
 
 		document.querySelector("body").appendChild(descriptionDialog);
 
-		closeDescriptionEvent();
+		closeToDoDescriptionEvent();
 	};
 
 	const findToDo = (id) => {
@@ -449,7 +457,7 @@ export function screenController() {
 			return;
 		}
 	};
-	const showDescriptionEvent = () => {
+	const showToDoDescriptionEvent = () => {
 		const detailsBtns = document.querySelectorAll(".detail-btn");
 
 		detailsBtns.forEach((btn) => {
@@ -460,7 +468,7 @@ export function screenController() {
 		});
 	};
 
-	const closeDescriptionEvent = () => {
+	const closeToDoDescriptionEvent = () => {
 		const closeBtn = document.querySelector(".desc-close");
 		const dialog = document.querySelector("dialog.description-dialog");
 
@@ -482,11 +490,11 @@ export function screenController() {
 		});
 	};
 
-	const editForm = (id) => {
+	const editToDoForm = (id) => {
 		editIndex = getToDoObject().findTask(id);
 		editObject = getToDoObject().getToDoArray()[editIndex];
 
-		createTaskForm(
+		createToDoForm(
 			"Edit ToDo",
 			editObject.title,
 			editObject.description,
@@ -495,19 +503,19 @@ export function screenController() {
 			"none",
 			"block",
 		);
-		confirmEditEvent();
+		confirmToDoEditEvent();
 	};
 
-	const editShowEvent = () => {
+	const editToDoEvent = () => {
 		const editBtns = document.querySelectorAll(".edit-btn");
 		editBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
-				editForm(btn.dataset.id);
+				editToDoForm(btn.dataset.id);
 				dialog.showModal();
 			});
 		});
 	};
-	const confirmEditEvent = () => {
+	const confirmToDoEditEvent = () => {
 		const conFirmEditBtn = document.querySelector(".edit-todo-btn");
 		conFirmEditBtn.addEventListener("click", (e) => {
 			e.preventDefault();
@@ -520,12 +528,12 @@ export function screenController() {
 				document.querySelector(".selected").textContent,
 			);
 			displayToDo();
-			dialog.close();
-			dialog.removeChild(document.querySelector("form"));
+			mainDialog.close();
+			mainDialog.removeChild(document.querySelector(".task-form"));
 		});
 	};
 
-	const isComplete = () => {
+	const toggleIsCompleteToDoEvent = () => {
 		const isCompleteBtns = document.querySelectorAll(".is-complete-btn");
 
 		isCompleteBtns.forEach((btn) => {
@@ -604,17 +612,17 @@ export function screenController() {
 		createProjectEvent();
 	};
 
-	const closeFormEvent = () => {
+	const closeProjectFormEvent = () => {
 		const closeBtn = document.querySelector(".project-close");
 		closeBtn.addEventListener("click", () => {
 			ProjectDialog.close();
 			ProjectDialog.removeChild(document.querySelector(".project-form"));
 		});
 	};
-	closeFormEvent();
+	closeProjectFormEvent();
 
-	const openFormBtn = document.querySelector(".open-form-btn");
-	openFormBtn.addEventListener("click", () => {
+	const openProjectFormBtn = document.querySelector(".open-form-btn");
+	openProjectFormBtn.addEventListener("click", () => {
 		createProjectForm();
 		ProjectDialog.showModal();
 	});
@@ -668,6 +676,7 @@ export function screenController() {
 		addBtn.addEventListener("click", (e) => {
 			e.preventDefault();
 			createProject();
+
 			ProjectDialog.close();
 			ProjectDialog.removeChild(document.querySelector(".project-form"));
 		});
