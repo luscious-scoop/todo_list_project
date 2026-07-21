@@ -514,7 +514,7 @@ export function screenController() {
 		editBtns.forEach((btn) => {
 			btn.addEventListener("click", () => {
 				editToDoForm(btn.dataset.id);
-				dialog.showModal();
+				mainDialog.showModal();
 			});
 		});
 	};

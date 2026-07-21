@@ -7,9 +7,13 @@ export function getLocalStorageItem(name) {
 }
 
 export function projectsRawDataController() {
+	let notesData = getLocalStorageItem("notesData") || [];
 	let projectsRawData = getLocalStorageItem("projectsRawData") || {
 		df: [],
-		notes: [],
+	};
+
+	const updateNotes = () => {
+		setLocalStorageItem("notesData", notesData);
 	};
 
 	const updateData = () => {
@@ -17,6 +21,16 @@ export function projectsRawDataController() {
 	};
 
 	const addRawData = (key, array = null) => {
+		if (key === "notes") {
+			notesData = [];
+			array.forEach((item) => {
+				notesData.push({
+					...item,
+				});
+			});
+			updateNotes();
+			return;
+		}
 		projectsRawData[key] = [];
 
 		if (!array) {
@@ -33,6 +47,10 @@ export function projectsRawDataController() {
 	};
 
 	const getRawDataArray = (key) => {
+		if (key === "notes") {
+			return notesData;
+		}
+
 		return projectsRawData[key];
 	};
 
